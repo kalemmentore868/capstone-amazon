@@ -11,6 +11,39 @@ export interface HeroObj {
   desc: string;
 }
 
+export const dummyData = [
+  {
+    imgUrl: camera,
+    title: "Camera",
+    price: 200,
+  },
+  {
+    imgUrl: headphone,
+    title: "Headphones",
+    price: 150,
+  },
+  {
+    imgUrl: shoe,
+    title: "shoes",
+    price: 300,
+  },
+  {
+    imgUrl: watch,
+    title: "Watch",
+    price: 50,
+  },
+  {
+    imgUrl: camera,
+    title: "Camera",
+    price: 200,
+  },
+  {
+    imgUrl: headphone,
+    title: "Headphones",
+    price: 150,
+  },
+];
+
 const heroList: HeroObj[] = [
   {
     src: camera,
