@@ -13,7 +13,7 @@ interface ProductData {
 
 interface GridProps {
     rows: number;
-    data: ProductData[];
+    data: any[];
     text: string
 }
 
@@ -42,7 +42,7 @@ const Grid: FC<GridProps> = ({ rows, data, text }) => {
                                         <Card.Body>
                                             <Card.Title>{prodObj.title}</Card.Title>
                                             <Card.Text>
-                                                {prodObj.price}
+                                                {prodObj.description}
                                             </Card.Text>
                                             <Button variant="primary">See more</Button>
                                         </Card.Body>

@@ -14,33 +14,66 @@ export interface HeroObj {
 export const dummyData = [
   {
     imgUrl: camera,
+    title: "Hobbies",
+    description: "yadda yadda yadda",
+  },
+  {
+    imgUrl: headphone,
+    title: "Electronics",
+    description: "yadda yadda yadda",
+  },
+  {
+    imgUrl: shoe,
+    title: "Footwear",
+    description: "yadda yadda yadda",
+  },
+  {
+    imgUrl: watch,
+    title: "Accessories",
+    description: "yadda yadda yadda",
+  },
+  {
+    imgUrl: camera,
+    title: "Hobbies",
+    description: "yadda yadda yadda",
+  },
+  {
+    imgUrl: headphone,
+    title: "Electronics",
+    description: "yadda yadda yadda",
+  },
+];
+
+export const dummyData2 = [
+  {
+    imgUrl: camera,
     title: "Camera",
-    price: 200,
+    description: "yadda yadda yadda",
   },
   {
     imgUrl: headphone,
     title: "Headphones",
-    price: 150,
+    description: "yadda yadda yadda",
   },
   {
     imgUrl: shoe,
     title: "shoes",
-    price: 300,
+    description: "yadda yadda yadda",
   },
   {
     imgUrl: watch,
     title: "Watch",
-    price: 50,
+    description: "yadda yadda yadda",
   },
   {
     imgUrl: camera,
     title: "Camera",
-    price: 200,
+    description: "yadda yadda yadda",
   },
   {
     imgUrl: headphone,
     title: "Headphones",
-    price: 150,
+    description: "yadda yadda yadda",
   },
 ];
 
