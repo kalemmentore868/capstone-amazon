@@ -1,5 +1,5 @@
 import React from 'react'
-import Grid from '../components/Grid'
+import Grid from '../components/CategoryComponents/Grid'
 import { dummyData } from '../helper/heroData'
 
 const ProductCategoryPage = () => {

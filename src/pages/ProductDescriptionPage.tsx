@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/esm/Row'
 import "../assets/css/productDetails.css"
-import ProductImages from '../components/ProductDescription/ProductImages'
-import ProductInfo from '../components/ProductDescription/ProductInfo'
-import RelatedProducts from '../components/ProductDescription/RelatedProducts'
+import ProductImages from '../components/ProductDescriptionComponents/ProductImages'
+import ProductInfo from '../components/ProductDescriptionComponents/ProductInfo'
+import RelatedProducts from '../components/ProductDescriptionComponents/RelatedProducts'
 
 const ProductDescriptionPage = () => {
     return (

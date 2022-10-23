@@ -3,10 +3,10 @@ import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
-import CartItem from '../components/ShoppingCart/CartItem';
-import CartHeading from '../components/ShoppingCart/CartHeading';
-import CartTotal from '../components/ShoppingCart/CartTotal';
-import CheckoutButton from '../components/ShoppingCart/CheckoutButton';
+import CartItem from '../components/ShoppingCartComponents/CartItem';
+import CartHeading from '../components/ShoppingCartComponents/CartHeading';
+import CartTotal from '../components/ShoppingCartComponents/CartTotal';
+import CheckoutButton from '../components/ShoppingCartComponents/CheckoutButton';
 
 
 const ShoppingCartPage = () => {

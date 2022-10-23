@@ -1,6 +1,6 @@
 import React from 'react'
-import Grid from './Grid'
-import { dummyData } from "../helper/heroData"
+import Grid from '../CategoryComponents/Grid'
+import { dummyData } from "../../helper/heroData"
 
 const CategorySection = () => {
     return (

@@ -3,9 +3,9 @@ import LoginForm from '../components/LoginForm'
 
 const LoginPage = () => {
     return (
-        <div>
+        <section className="vh-100">
             <LoginForm />
-        </div>
+        </section>
     )
 }
 

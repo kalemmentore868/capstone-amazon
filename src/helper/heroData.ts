@@ -49,31 +49,37 @@ export const dummyData2 = [
     imgUrl: camera,
     title: "Camera",
     description: "yadda yadda yadda",
+    price: 150,
   },
   {
     imgUrl: headphone,
     title: "Headphones",
     description: "yadda yadda yadda",
+    price: 50,
   },
   {
     imgUrl: shoe,
     title: "shoes",
     description: "yadda yadda yadda",
+    price: 90,
   },
   {
     imgUrl: watch,
     title: "Watch",
     description: "yadda yadda yadda",
+    price: 600,
   },
   {
     imgUrl: camera,
     title: "Camera",
     description: "yadda yadda yadda",
+    price: 450,
   },
   {
     imgUrl: headphone,
     title: "Headphones",
     description: "yadda yadda yadda",
+    price: 1444,
   },
 ];
 

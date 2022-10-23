@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import CategoryCard from './CategoryCard';
 
 interface ProductData {
     title: string;
@@ -37,16 +38,7 @@ const Grid: FC<GridProps> = ({ rows, data, text }) => {
 
                             return (
                                 <Col className="my-3 d-flex justify-content-center">
-                                    <Card style={{ width: '22rem' }}>
-                                        <Card.Img variant="top" src={prodObj.imgUrl} />
-                                        <Card.Body>
-                                            <Card.Title>{prodObj.title}</Card.Title>
-                                            <Card.Text>
-                                                {prodObj.description}
-                                            </Card.Text>
-                                            <Button variant="primary">See more</Button>
-                                        </Card.Body>
-                                    </Card>
+                                    <CategoryCard prodObj={prodObj} />
                                 </Col>
                             )
                         })}
