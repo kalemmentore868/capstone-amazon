@@ -7,7 +7,7 @@ const BestSellerPage = () => {
     const data = [...dummyData2, ...dummyData2]
     return (
         <div>
-            <ProductGrid rows={4} data={data} text="Browse All Products" />
+            <ProductGrid rows={4} data={data} text="Browse Best Sellers" />
         </div>
     )
 

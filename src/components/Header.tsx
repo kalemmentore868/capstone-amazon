@@ -6,21 +6,33 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { AiOutlineShopping } from "react-icons/ai"
 
+
 const Header = () => {
+
+    const path = window.location.href
+    console.log(path)
     return (
-        <Navbar bg="light" expand="lg" sticky="top">
+        <Navbar bg="light" expand="lg" sticky="top" className="bg-light">
             <Container>
                 <Navbar.Brand href="/">
-                    <Logo width={50} />
+                    Trinizon
                 </Navbar.Brand>
+                <SearchBar />
                 <Navbar.Toggle aria-controls="navbarScroll" />
 
                 <Navbar.Collapse id="navberScroll" className="justify-content-evenly">
 
-                    <Nav.Link href="/signup">Sign Up</Nav.Link>
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/checkout"> <AiOutlineShopping size="30px" /> </Nav.Link>
-                    <SearchBar />
+                    <Nav>
+
+                        <Nav.Link href="/products" >Products</Nav.Link>
+                        {/* <Nav.Link href="/categories" >Categories</Nav.Link> */}
+                        {/* <Nav.Link href="/best-sellers" >Best Sellers</Nav.Link> */}
+                        <Nav.Link href="/signup" >Sign Up</Nav.Link>
+                        <Nav.Link href="/login">Login</Nav.Link>
+                        <Nav.Link href="/checkout"> <AiOutlineShopping size="30px" /> </Nav.Link>
+                    </Nav>
+
+
                 </Navbar.Collapse>
 
 

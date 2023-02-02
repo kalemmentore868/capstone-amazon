@@ -16,7 +16,7 @@ const RoutesList = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/best-seller" element={<BestSellerPage />} />
+            <Route path="/best-sellers" element={<BestSellerPage />} />
             <Route path="/categories" element={<ProductCategoryPage />} />
             <Route path="/products" element={<ProductListingPage />} />
             <Route path="/products/:id" element={<ProductDescriptionPage />} />
