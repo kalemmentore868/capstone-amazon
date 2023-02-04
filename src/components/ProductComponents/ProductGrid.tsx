@@ -2,15 +2,8 @@ import React, { FC } from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard';
 
-interface ProductData {
-    title: string;
-    price: number;
-    imgUrl: string;
-}
 
 interface GridProps {
     rows: number;
@@ -38,7 +31,7 @@ const Grid: FC<GridProps> = ({ rows, data, text }) => {
 
                             return (
                                 <Col lg={4} md={12}>
-                                    <ProductCard prodObj={prodObj} />
+                                    <ProductCard product={prodObj} />
                                 </Col>
                             )
                         })}

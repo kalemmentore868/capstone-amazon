@@ -1,14 +1,14 @@
 import React from 'react'
-import BestSellerSection from '../components/HomePageComponents/BestSellerSection'
-import CategorySection from '../components/HomePageComponents/CategorySection'
+import About from '../components/HomePageComponents/About'
+import Products from '../components/HomePageComponents/DisplayProducts'
 import Hero from '../components/HomePageComponents/Hero'
 
 const HomePage = () => {
     return (
         <>
             <Hero />
-            <CategorySection />
-            <BestSellerSection />
+            <About />
+            <Products />
         </>
     )
 }

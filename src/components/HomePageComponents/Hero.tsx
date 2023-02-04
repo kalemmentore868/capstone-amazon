@@ -1,31 +1,31 @@
-import React from 'react'
-import Carousel from 'react-bootstrap/Carousel';
-import heroList from '../../helper/heroData';
+import React from 'react';
+import { Container, Button } from 'react-bootstrap';
+import styled from 'styled-components';
 
+const HeroSection = styled.div`
+  background: linear-gradient(to right, red, black, white);
+  height: 100vh;
+  text-align: center;
+  color: white;
+   border-radius: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display:flex;
+  align-items:center;
+`;
 
 const Hero = () => {
     return (
-        <div className='h-100 text-center'>
-            <Carousel className="w-100 mx-auto" >
+        <HeroSection>
+            <Container>
+                <h1 className="font-large">Trinizon - Your One-Stop Shop</h1>
+                <p>
+                    Shop the latest and greatest products from Trinidad and Tobago.
+                </p>
+                <Button variant="danger">Start Shopping</Button>
+            </Container>
+        </HeroSection>
+    );
+};
 
-                {heroList.map(obj => {
-                    return (
-                        <Carousel.Item>
-                            <img
-                                className="d-block w-100"
-                                src={obj.src}
-                                alt={obj.alt}
-                            />
-                            <Carousel.Caption>
-                                <h3>{obj.title}</h3>
-                                <p>{obj.desc}</p>
-                            </Carousel.Caption>
-                        </Carousel.Item>
-                    )
-                })}
-            </Carousel>
-        </div>
-    )
-}
-
-export default Hero
+export default Hero;

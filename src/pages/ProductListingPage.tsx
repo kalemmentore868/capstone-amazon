@@ -1,14 +1,36 @@
-import React from 'react'
-import ProductGrid from '../components/ProductComponents/ProductGrid'
-import { dummyData2 } from '../helper/heroData'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Card, Row, Col, Container } from 'react-bootstrap';
+import { Product } from '../components/HomePageComponents/DisplayProducts';
+import ProductCard from '../components/ProductCard';
 
-const ProductListingPage = () => {
-    const data = [...dummyData2, ...dummyData2]
+
+const ProductListing: React.FC = () => {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const res = await fetch('http://localhost:5000/api/products');
+            const data = await res.json();
+            setProducts(data.data);
+        };
+        fetchProducts();
+    }, []);
+
     return (
-        <div>
-            <ProductGrid rows={4} data={data} text="Browse All Products" />
-        </div>
-    )
-}
+        <>
+            <Container>
+                <h1 className="my-5 text-center">Take A Look At Our Products</h1>
+                <Row>
+                    {products.map((product) => (
+                        <Col xs={12} sm={6} md={4} lg={3} key={product._id}>
+                            <ProductCard product={product} />
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
+        </>
+    );
+};
 
-export default ProductListingPage
+export default ProductListing;
