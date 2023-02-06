@@ -5,9 +5,13 @@ import SearchBar from './SearchBar';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { AiOutlineShopping } from "react-icons/ai"
+import { useAppSelector } from '../redux/redux-hooks';
+import { Link } from 'react-router-dom';
 
 
 const Header = () => {
+
+    const cart = useAppSelector((state) => state.cart)
 
     const path = window.location.href
     console.log(path)
@@ -24,12 +28,14 @@ const Header = () => {
 
                     <Nav>
 
-                        <Nav.Link href="/products" >Products</Nav.Link>
-                        {/* <Nav.Link href="/categories" >Categories</Nav.Link> */}
-                        {/* <Nav.Link href="/best-sellers" >Best Sellers</Nav.Link> */}
-                        <Nav.Link href="/signup" >Sign Up</Nav.Link>
-                        <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/checkout"> <AiOutlineShopping size="30px" /> </Nav.Link>
+                        <Link to="/products" >
+                            <span className="nav-link">Products</span> </Link>
+                        <Link to="/signup" ><span className="nav-link" >Sign Up</span></Link>
+                        <Link to="/login"><span className="nav-link">Login</span></Link>
+                        <Link to="/checkout">
+                            <span className="nav-link"><AiOutlineShopping size="30px" />{cart.items.length}</span>
+                        </Link>
+
                     </Nav>
 
 

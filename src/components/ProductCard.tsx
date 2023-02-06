@@ -1,6 +1,9 @@
 import React from 'react'
 import { Card, Button } from 'react-bootstrap';
+import { FaProductHunt } from 'react-icons/fa';
 import styled from 'styled-components';
+import { addItemToCart } from '../redux/cart';
+import { useAppDispatch } from '../redux/redux-hooks';
 import { Product } from './HomePageComponents/DisplayProducts';
 
 const StyledCard = styled(Card)`
@@ -29,13 +32,21 @@ interface props {
 }
 
 const ProductCard: React.FC<props> = ({ product }) => {
+    const dispatch = useAppDispatch();
+    let cartItem = {
+        productId: product._id,
+        name: product.title,
+        quantity: 1,
+        price: product.price,
+        img_url: product.img_url
+    }
     return (
         <StyledCard>
             <Card.Img variant="top" src={product.img_url} />
             <Card.Body>
                 <StyledCardTitle>{product.title}</StyledCardTitle>
                 <StyledCardText>{product.description}</StyledCardText>
-                <Button variant="primary me-3">Add to Cart</Button>
+                <Button variant="primary me-3" onClick={() => dispatch(addItemToCart(cartItem))}>Add to Cart</Button>
                 <Button variant="success" href={`products/${product._id}`}>See More</Button>
             </Card.Body>
         </StyledCard>
