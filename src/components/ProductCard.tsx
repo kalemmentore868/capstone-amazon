@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { addItemToCart, setCart } from '../redux/cart';
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
@@ -94,7 +95,10 @@ const ProductCard: React.FC<props> = ({ product }) => {
         <StyledCardText>{product.description}</StyledCardText>
 
         <Button variant="primary me-3 mb-3" onClick={addToCart}>Add to Cart</Button>
-        <Button variant="success mb-3" href={`products/${product._id}`}>See More</Button>
+        <Link to={`products/${product._id}`}>
+          <Button variant="success mb-3" >See More</Button>
+        </Link>
+
       </Card.Body>
     </StyledCard>
   )
