@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const NotFoundPage = () => {
     return (
@@ -9,7 +11,10 @@ const NotFoundPage = () => {
                 <p className="lead">
                     The page you’re looking for doesn’t exist.
                 </p>
-                <a href="index.html" className="btn btn-primary">Go Home</a>
+                <Link to="/">
+                    <Button variant="primary">Go Home</Button>
+                </Link>
+
             </div>
         </div>
     )
