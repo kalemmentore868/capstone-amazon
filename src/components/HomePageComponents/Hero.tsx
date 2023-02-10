@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeroSection = styled.div`
@@ -22,7 +23,10 @@ const Hero = () => {
                 <p>
                     Shop the latest and greatest products from Trinidad and Tobago.
                 </p>
-                <Button variant="danger">Start Shopping</Button>
+                <Link to="/products">
+                    <Button variant="danger">Start Shopping</Button>
+                </Link>
+
             </Container>
         </HeroSection>
     );

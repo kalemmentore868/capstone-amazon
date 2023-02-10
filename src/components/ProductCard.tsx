@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import { addItemToCart, setCart } from '../redux/cart';
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
@@ -8,7 +8,7 @@ import { Product } from './HomePageComponents/DisplayProducts';
 const StyledCard = styled(Card)`
   margin-bottom: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 450px;
+
   transition: all 0.3s;
   &:hover {
     transform: translateY(-10px);
@@ -30,6 +30,11 @@ const StyledCardTitle = styled(Card.Title)`
 
 const StyledCardText = styled(Card.Text)`
   font-size: 0.9em;
+  color: #555;
+`;
+
+const StyledCardPrice = styled(Card.Text)`
+  font-size: 1.2em;
   color: #555;
 `;
 
@@ -77,10 +82,19 @@ const ProductCard: React.FC<props> = ({ product }) => {
     <StyledCard>
       <StyledCardImg variant="top" src={product.img_url} />
       <Card.Body>
-        <StyledCardTitle>{product.title}</StyledCardTitle>
+        <Row>
+          <Col xs={9}>
+            <StyledCardTitle>{product.title}</StyledCardTitle>
+          </Col>
+          <Col>
+            <StyledCardPrice>${product.price}</StyledCardPrice>
+          </Col>
+        </Row>
+
         <StyledCardText>{product.description}</StyledCardText>
-        <Button variant="primary me-3" onClick={addToCart}>Add to Cart</Button>
-        <Button variant="success" href={`products/${product._id}`}>See More</Button>
+
+        <Button variant="primary me-3 mb-3" onClick={addToCart}>Add to Cart</Button>
+        <Button variant="success mb-3" href={`products/${product._id}`}>See More</Button>
       </Card.Body>
     </StyledCard>
   )

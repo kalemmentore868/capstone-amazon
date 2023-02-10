@@ -16,6 +16,7 @@ const CartItem: React.FC<props> = ({ item }) => {
     const user = useAppSelector((state) => state.user)
 
     const updateCartItem = (action: string) => {
+
         let qty: number = 1
         if (user && user.token) {
             if (action === "+") {
@@ -23,6 +24,7 @@ const CartItem: React.FC<props> = ({ item }) => {
             } else if (action === "-") {
                 qty = item.quantity - 1
             }
+
 
             const requestOptions = {
                 method: "PUT",
@@ -34,7 +36,9 @@ const CartItem: React.FC<props> = ({ item }) => {
             };
             fetch(`http://localhost:5000/api/cart/${user._id}`,
                 requestOptions)
-                .then(response => response.json())
+                .then(response => {
+                    return response.json()
+                })
 
                 .then(data => {
                     console.log(data)
@@ -42,10 +46,13 @@ const CartItem: React.FC<props> = ({ item }) => {
                 })
                 .catch(err => console.log(err))
         } else {
+
             if (action === "+") {
-                reduceItemQuantity(item.productId)
+                dispatch(addItemToCart(item))
+
             } else if (action === "-") {
-                addItemToCart(item)
+                dispatch(reduceItemQuantity(item.productId))
+
             }
 
         }
