@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import RoutesList from './components/RoutesList';
 import { setCart } from './redux/cart';
+import { ToastContainer } from 'react-bootstrap';
+import 'react-toastify/dist/ReactToastify.css';
+import { setUser } from './redux/user';
 
 function App() {
   const dispatch = useDispatch()
@@ -16,6 +19,13 @@ function App() {
       cart = JSON.parse(cart)
       //@ts-ignore
       dispatch(setCart(cart))
+    }
+
+    let user = localStorage.getItem("user")
+    if (user != null) {
+      user = JSON.parse(user)
+      //@ts-ignore
+      dispatch(setUser(user))
     }
 
 
@@ -30,7 +40,7 @@ function App() {
         <RoutesList />
         <Footer />
       </BrowserRouter>
-
+      <ToastContainer />
     </>
   );
 }

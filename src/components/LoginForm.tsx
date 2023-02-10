@@ -1,12 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import "../assets/css/login.css"
+import { useNavigate } from 'react-router';
+import { useAppDispatch } from '../redux/redux-hooks';
+import { setUser } from '../redux/user';
 
 const LoginForm = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
+    //@ts-ignore
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const formValues = {
+            email,
+            password
+        }
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formValues),
+        };
+
+        fetch(
+            "http://localhost:5000/api/auth/login",
+            requestOptions
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                const user = data.data
+                if (user) {
+                    dispatch(setUser(user))
+                    setEmail('');
+                    setPassword('');
+                    localStorage.setItem("user", JSON.stringify(user))
+                    navigate("/")
+                } else {
+                    console.log(data)
+                    if (data.error) {
+                        alert(data.error.message)
+                    } else {
+                        alert(data.message)
+                    }
+                }
+
+            })
+            .catch((err) => console.log(err));
+
+    };
+
     return (
         <Container fluid className="h-custom">
             <Row className="d-flex justify-content-center align-items-center h-100">
@@ -15,22 +64,24 @@ const LoginForm = () => {
                         className="img-fluid" alt="Sample image" />
                 </Col>
                 <Col md={8} lg={6} xl={4} className="offset-xl-1">
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
 
-                        <Form.Group className="form-outline mb-4" controlId="formBasicEmail">
+                        <Form.Group className="form-outline mb-4" >
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control type="email" placeholder="Enter email" value={email}
+                                onChange={(event) => setEmail(event.target.value)} required />
                         </Form.Group>
 
-                        <Form.Group className="form-outline mb-4" controlId="formBasicPassword">
+                        <Form.Group className="form-outline mb-4" >
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" value={password}
+                                onChange={(event) => setPassword(event.target.value)} required />
                         </Form.Group>
 
                         <div className="d-flex justify-content-between align-items-center">
                             <Form.Group className="form-check mb-0">
                                 <Form.Check className="me-2" type="checkbox" value="" id="form2Example3" />
-                                <Form.Label className="form-check-label" for="form2Example3">
+                                <Form.Label className="form-check-label" htmlFor="form2Example3">
                                     Remember me
                                 </Form.Label>
                             </Form.Group>

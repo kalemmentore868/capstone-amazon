@@ -1,20 +1,26 @@
-import React, { useEffect } from 'react'
-import Col from 'react-bootstrap/Col'
+import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 import CartItem from '../components/ShoppingCartComponents/CartItem';
 import CartHeading from '../components/ShoppingCartComponents/CartHeading';
 import CartTotal from '../components/ShoppingCartComponents/CartTotal';
-import CheckoutButton from '../components/ShoppingCartComponents/CheckoutButton';
+
 
 import { useAppSelector } from "../redux/redux-hooks";
 import { useDispatch } from 'react-redux';
 import { removeItemFromCart, setBill } from '../redux/cart';
+import { Button, Card, Modal } from 'react-bootstrap';
+import PaymentForm from '../components/PaymentForm';
 
 const ShoppingCartPage = () => {
     const cart = useAppSelector((state) => state.cart)
     const dispatch = useDispatch()
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     useEffect(() => {
@@ -25,9 +31,6 @@ const ShoppingCartPage = () => {
         })
 
         dispatch(setBill())
-
-
-
 
     }, [cart])
 
@@ -45,8 +48,29 @@ const ShoppingCartPage = () => {
                     })}
 
                     <CartTotal total={cart.bill} />
-                    <CheckoutButton />
+                    <Card className="mb-4">
+                        <Card.Body className="d-grid p-4">
+                            <Button size="lg" variant="warning" className="btn-block text-light" onClick={handleShow}>Proceed to Pay</Button>
+                        </Card.Body>
+                    </Card>
                 </Row>
+
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Pay With Your Credit Card</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <PaymentForm />
+                    </Modal.Body>
+                    <Modal.Footer>
+
+
+
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
             </Container>
 

@@ -1,10 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-interface User {
+export interface User {
   first_name: string;
   last_name: string;
-  is_admin: boolean;
+  is_admin?: boolean;
   email: string;
+  _id?: string;
+  token?: string;
 }
 
 const initialState: User = {
@@ -17,7 +19,21 @@ const initialState: User = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action: PayloadAction<User>) => {
+      return action.payload;
+    },
+    logout: (state) => {
+      return {
+        first_name: "",
+        last_name: "",
+        is_admin: false,
+        email: "",
+      };
+    },
+  },
 });
+
+export const { setUser, logout } = userSlice.actions;
 
 export default userSlice.reducer;
