@@ -30,7 +30,7 @@ const LoginForm = () => {
         };
 
         fetch(
-            "http://localhost:5000/api/auth/login",
+            "https://capstone-server-production.up.railway.app/api/auth/login",
             requestOptions
         )
             .then((response) => response.json())

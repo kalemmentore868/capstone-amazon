@@ -39,7 +39,7 @@ const SignUpForm = () => {
         };
 
         fetch(
-            "http://localhost:5000/api/auth/register",
+            "https://capstone-server-production.up.railway.app/api/auth/register",
             requestOptions
         )
             .then((response) => response.json())

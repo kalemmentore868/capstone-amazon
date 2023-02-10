@@ -15,7 +15,7 @@ const Products = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const res = await fetch('http://localhost:5000/api/products');
+            const res = await fetch('https://capstone-server-production.up.railway.app/api/products');
             const data = await res.json();
             setProducts(data.data.slice(0, 4));
         };
