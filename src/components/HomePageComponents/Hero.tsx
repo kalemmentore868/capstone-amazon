@@ -1,35 +1,44 @@
 import React from 'react';
-import { Container, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Carousel, Container, Button } from 'react-bootstrap';
+import '../../assets/css/HeroCarousel.css';
+// @ts-ignore
+import food1 from "../../assets/img/fast-food1.jpg";
+// @ts-ignore
+import food2 from "../../assets/img/fast-food2.jpg";
+// @ts-ignore
+import food3 from "../../assets/img/fast-food3.jpg";
 
-const HeroSection = styled.div`
-  background: linear-gradient(to right, red, black, white);
-  height: 100vh;
-  text-align: center;
-  color: white;
-   border-radius: 6px;
-  padding-left: 15px;
-  padding-right: 15px;
-  display:flex;
-  align-items:center;
-`;
 
-const Hero = () => {
+
+const HeroCarousel = () => {
+    const style1 = { background: `url(${food1}) no-repeat center center fixed`, backgroundSize: "cover" }
+    const style2 = { background: `url(${food2}) no-repeat center center fixed`, backgroundSize: "cover" }
+    const style3 = { background: `url(${food3}) no-repeat center center fixed`, backgroundSize: "cover" }
     return (
-        <HeroSection>
-            <Container>
-                <h1 className="font-large">Trinizon - Your One-Stop Shop</h1>
-                <p>
-                    Shop the latest and greatest products from Trinidad and Tobago.
-                </p>
-                <Link to="/products">
-                    <Button variant="danger">Start Shopping</Button>
-                </Link>
-
-            </Container>
-        </HeroSection>
+        <Carousel fade controls={false}>
+            <Carousel.Item>
+                <div className="slide1" style={style1} />
+                <Container className="overlay-text">
+                    <h1>OroBites Food Service</h1>
+                    <Button variant="success">Order Now</Button>
+                </Container>
+            </Carousel.Item>
+            <Carousel.Item>
+                <div className="slide2" style={style2} />
+                <Container className="overlay-text">
+                    <h1>OroBites Food Service</h1>
+                    <Button variant="success">Order Now</Button>
+                </Container>
+            </Carousel.Item>
+            <Carousel.Item>
+                <div className="slide3" style={style3} />
+                <Container className="overlay-text">
+                    <h1>OroBites Food Service</h1>
+                    <Button variant="success">Order Now</Button>
+                </Container>
+            </Carousel.Item>
+        </Carousel>
     );
 };
 
-export default Hero;
+export default HeroCarousel;

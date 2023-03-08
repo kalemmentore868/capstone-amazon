@@ -29,11 +29,6 @@ const StyledCardTitle = styled(Card.Title)`
   color: #333;
 `;
 
-const StyledCardText = styled(Card.Text)`
-  font-size: 0.9em;
-  color: #555;
-`;
-
 const StyledCardPrice = styled(Card.Text)`
   font-size: 1.2em;
   color: #555;
@@ -44,6 +39,7 @@ interface props {
 }
 
 const ProductCard: React.FC<props> = ({ product }) => {
+  console.log(product)
   const dispatch = useAppDispatch();
   let cartItem = {
     productId: product._id,
@@ -82,8 +78,8 @@ const ProductCard: React.FC<props> = ({ product }) => {
   return (
     <StyledCard>
       <StyledCardImg variant="top" src={product.img_url} />
-      <Card.Body>
-        <Row>
+      <Card.Body className="rubiks-font">
+        <Row className="mb-3">
           <Col xs={9}>
             <StyledCardTitle>{product.title}</StyledCardTitle>
           </Col>
@@ -91,8 +87,6 @@ const ProductCard: React.FC<props> = ({ product }) => {
             <StyledCardPrice>${product.price}</StyledCardPrice>
           </Col>
         </Row>
-
-        <StyledCardText>{product.description}</StyledCardText>
 
         <Button variant="primary me-3 mb-3" onClick={addToCart}>Add to Cart</Button>
         <Link to={`products/${product._id}`}>

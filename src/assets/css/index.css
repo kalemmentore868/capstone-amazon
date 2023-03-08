@@ -1,5 +1,13 @@
+body {
+  font-family: "Rubik", sans-serif;
+}
+
 .font-large {
   font-size: 50px;
+}
+
+.big-font {
+  font-size: 3rem;
 }
 
 a {
@@ -8,4 +16,28 @@ a {
 
 .hover {
   cursor: pointer;
+}
+
+.rubiks-font {
+  font-family: "Rubik", sans-serif;
+}
+
+.curly {
+  font-family: "Abril Fatface", cursive;
+}
+
+.nav-link {
+  color: #717573;
+}
+
+.green {
+  color: #60be74;
+}
+
+.green-bg {
+  background-color: #60be74;
+}
+
+.grey-bg {
+  background-color: #f4f4f4;
 }

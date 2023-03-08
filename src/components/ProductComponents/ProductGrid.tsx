@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProductCard from '../ProductCard';
+import { Button } from 'react-bootstrap';
 
 
 interface GridProps {
@@ -12,6 +13,7 @@ interface GridProps {
 }
 
 const Grid: FC<GridProps> = ({ rows, data, text }) => {
+    console.log(data)
 
     // @ts-ignore
     let rowsArr = [...Array(rows).keys()]
@@ -20,24 +22,26 @@ const Grid: FC<GridProps> = ({ rows, data, text }) => {
     let index = 0;
 
     return (
-        <Container>
-            <h1 className="my-3 text-center">{text} </h1>
+        <Container className="py-3 my-4">
+            <h1 className="mb-5 text-left curly">{text} </h1>
             {rowsArr.map(row => {
                 return (
                     <Row>
-                        {colsArr.map(col => {
-                            const prodObj = data[index]
-                            index++
+                        {colsArr.map((col, index) => {
 
                             return (
                                 <Col lg={4} md={12}>
-                                    <ProductCard product={prodObj} />
+                                    <ProductCard product={data[index]} />
                                 </Col>
                             )
                         })}
                     </Row>
                 )
             })}
+            <div className="d-flex justify-content-end rubiks-font">
+                <Button variant="primary" className="ms-auto p-2">See All Best Sellers</Button>
+            </div>
+
         </Container>
     )
 }

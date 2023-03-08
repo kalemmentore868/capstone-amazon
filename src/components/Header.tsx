@@ -23,10 +23,10 @@ const Header = () => {
     }
 
     return (
-        <Navbar bg="light" expand="lg" sticky="top" className="bg-light">
+        <Navbar expand="lg" sticky="top" className="grey-bg rubiks-font" >
             <Container>
-                <Navbar.Brand href="/">
-                    Trinizon
+                <Navbar.Brand href="/" className="green">
+                    OroBites
                 </Navbar.Brand>
                 <SearchBar />
                 <Navbar.Toggle aria-controls="navbarScroll" />
@@ -35,8 +35,20 @@ const Header = () => {
 
                     <Nav>
 
+                        <Link to="/">
+                            <span className="nav-link green">Home</span>
+                        </Link>
+
                         <Link to="/products" >
-                            <span className="nav-link">Products</span>
+                            <span className="nav-link">Shop</span>
+                        </Link>
+
+                        <Link to="/best-seller">
+                            <span className="nav-link">Best Sellers</span>
+                        </Link>
+
+                        <Link to="/categories">
+                            <span className="nav-link">Categories</span>
                         </Link>
 
                         {user && user.token ? (
@@ -47,6 +59,7 @@ const Header = () => {
                                 <Link to="/login"><span className="nav-link">Login</span></Link>
                             </>
                         )}
+
 
 
 

@@ -10,7 +10,7 @@ const SearchBar = () => {
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedby="search-addon" />
-            <span className="input-group-text border-0" id="search-addon">
+            <span className="input-group-text border-0" id="search-addon" >
                 <BiSearchAlt />
             </span>
 
