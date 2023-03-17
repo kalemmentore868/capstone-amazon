@@ -12,14 +12,14 @@ const NewProducts = () => {
                 </Col>
                 <Col xs={12} md={6} className="text-right rubiks-font hover text-muted mt-4">
                     <span className="me-4 active-cat">All</span>
-                    <span className="me-4">Dairy</span>
-                    <span className="me-4">Fruits</span>
-                    <span className="me-4">Snacks</span>
-                    <span>Meat</span>
+                    <span className="me-4">Burgers</span>
+                    <span className="me-4">Combos</span>
+                    <span className="me-4">Veggie</span>
+                    <span>Subs</span>
                 </Col>
             </Row>
             <Row className="mt-4">
-                {[...Array(6)].map((_, index) => (
+                {[...Array(3)].map((_, index) => (
                     <Col key={index} xs={12} md={4} className="mb-4">
                         <Card>
                             <ProductCard2 />

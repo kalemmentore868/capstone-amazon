@@ -39,7 +39,7 @@ interface props {
 }
 
 const ProductCard: React.FC<props> = ({ product }) => {
-  console.log(product)
+
   const dispatch = useAppDispatch();
   let cartItem = {
     productId: product._id,

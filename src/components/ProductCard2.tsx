@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { FaEye, FaShoppingCart } from 'react-icons/fa';
+import { addItemToCart, setCart } from '../redux/cart';
+import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import '../assets/css/ProductCard2.css';
+
 
 const ProductCard2 = () => {
     const [showIcons, setShowIcons] = useState(false);
+
+
 
     const handleMouseEnter = () => {
         setShowIcons(true);
@@ -23,7 +28,7 @@ const ProductCard2 = () => {
             <div className="product-card-img-container">
                 <Card.Img
                     variant="top"
-                    src="https://images.unsplash.com/photo-1618164436241-4473940d1f5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoZWVzZXxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60"
+                    src="https://images.unsplash.com/photo-1528279027-68f0d7fce9f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc3QlMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                     className="product-card-img"
                 />
                 {showIcons && (
@@ -34,14 +39,14 @@ const ProductCard2 = () => {
                 )}
             </div>
             <Card.Body>
-                <Card.Title className="product-card-title">Product Title</Card.Title>
+                <Card.Title className="product-card-title">Sub and Fries Combo</Card.Title>
                 <Card.Text className="product-card-rating">
                     {[...Array(5)].map((_, i) => (
                         <span key={i} className="product-card-star">&#9733;</span>
                     ))}
                 </Card.Text>
                 <Card.Text className="product-card-price text-muted">
-                    $19.99
+                    $35
                 </Card.Text>
             </Card.Body>
         </Card>

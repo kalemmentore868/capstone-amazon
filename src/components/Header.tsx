@@ -26,7 +26,7 @@ const Header = () => {
         <Navbar expand="lg" sticky="top" className="grey-bg rubiks-font" >
             <Container>
                 <Navbar.Brand href="/" className="green">
-                    OroBites
+                    What Tuh Eat
                 </Navbar.Brand>
                 <SearchBar />
                 <Navbar.Toggle aria-controls="navbarScroll" />

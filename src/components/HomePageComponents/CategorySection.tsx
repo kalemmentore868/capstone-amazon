@@ -9,25 +9,25 @@ const CategorySection = () => {
             <Row className="mb-3">
                 <Col md={4} className="mb-3">
                     <Card className="green-bg white-text curly " >
-                        <Card.Img variant="top" className="card-img" src="https://images.unsplash.com/photo-1557844352-761f2565b576?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dmVnZXRhYmxlc3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60" />
+                        <Card.Img variant="top" className="card-img" src="https://plus.unsplash.com/premium_photo-1672498193267-4f0e8c819bc8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2luZ3MlMjBmcmllZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
                         <Card.Body>
-                            <Card.Title className="text-center hover">Vegetables</Card.Title>
+                            <Card.Title className="text-center hover">Wings</Card.Title>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col md={4} className="mb-3">
                     <Card className="green-bg white-text curly">
-                        <Card.Img className="card-img" variant="top" src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8RnJ1aXRzfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
+                        <Card.Img className="card-img" variant="top" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8QnVyZ2Vyc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
                         <Card.Body>
-                            <Card.Title className="text-center hover">Fruits</Card.Title>
+                            <Card.Title className="text-center hover">Burgers</Card.Title>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col md={4}>
                     <Card className="green-bg white-text curly">
-                        <Card.Img className="card-img" variant="top" src="https://images.unsplash.com/photo-1630356090105-808ba2fe97f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFpcnklMjBwcm9kdWN0c3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60" />
+                        <Card.Img className="card-img" variant="top" src="https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZCUyMHdyYXB8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" />
                         <Card.Body>
-                            <Card.Title className="text-center hover">Dairy Products</Card.Title>
+                            <Card.Title className="text-center hover">Gyros</Card.Title>
                         </Card.Body>
                     </Card>
                 </Col>

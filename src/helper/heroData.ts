@@ -14,26 +14,27 @@ export interface HeroObj {
 
 export const dummyData2 = [
   {
-    img_url: bread,
-    title: "Bread",
+    img_url:
+      "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YWxmcmVkb3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    title: "Alfredo",
     description: "yadda yadda yadda",
-    price: 15,
+    price: 40,
     _id: 1,
   },
   {
     img_url:
-      "https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWdnc3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60",
-    title: "Eggs",
+      "https://images.unsplash.com/photo-1627662168223-7df99068099a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNoZWVzeSUyMGJhY29uJTIwZnJpZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    title: "Nuggets and Fries",
     description: "yadda yadda yadda",
     price: 30,
     _id: 2,
   },
   {
     img_url:
-      "https://images.unsplash.com/photo-1618164436241-4473940d1f5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoZWVzZXxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60",
-    title: "Cheese",
+      "https://images.unsplash.com/photo-1542344807-21226ec94b39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZG9nc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    title: "Hot dogs",
     description: "yadda yadda yadda",
-    price: 25,
+    price: 12,
     _id: 3,
   },
 ];
