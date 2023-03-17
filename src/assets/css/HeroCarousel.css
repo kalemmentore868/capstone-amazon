@@ -69,3 +69,11 @@
   font-family: "Rubik", sans-serif;
   background-color: #60be74;
 }
+
+@media screen and (max-width: 600px) {
+  .slide1,
+  .slide2,
+  .slide3 {
+    background-attachment: unset !important;
+  }
+}

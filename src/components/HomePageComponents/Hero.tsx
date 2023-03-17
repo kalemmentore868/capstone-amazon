@@ -19,21 +19,21 @@ const HeroCarousel = () => {
             <Carousel.Item>
                 <div className="slide1" style={style1} />
                 <Container className="overlay-text">
-                    <h1>OroBites Food Service</h1>
+                    <h1>WTE Food Service</h1>
                     <Button variant="success">Order Now</Button>
                 </Container>
             </Carousel.Item>
             <Carousel.Item>
                 <div className="slide2" style={style2} />
                 <Container className="overlay-text">
-                    <h1>OroBites Food Service</h1>
+                    <h1>WTE Food Service</h1>
                     <Button variant="success">Order Now</Button>
                 </Container>
             </Carousel.Item>
             <Carousel.Item>
                 <div className="slide3" style={style3} />
                 <Container className="overlay-text">
-                    <h1>OroBites Food Service</h1>
+                    <h1>WTE Food Service</h1>
                     <Button variant="success">Order Now</Button>
                 </Container>
             </Carousel.Item>
