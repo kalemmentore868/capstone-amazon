@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import RoutesList from './components/RoutesList';
 import { setCart } from './redux/cart';
-import { ToastContainer } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setUser } from './redux/user';
 
@@ -38,9 +38,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <RoutesList />
+        <ToastContainer />
         <Footer />
+
       </BrowserRouter>
-      <ToastContainer />
+
     </>
   );
 }

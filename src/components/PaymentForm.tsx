@@ -41,7 +41,7 @@ function PaymentForm() {
             body: JSON.stringify(formValues),
         };
 
-        fetch(`https://capstone-server-production.up.railway.app/api/order/${user._id}`, requestOptions)
+        fetch(`https://capstone-server-production.up.railway.app/api/order/${user.id}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 console.log(data)

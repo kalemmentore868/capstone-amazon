@@ -8,6 +8,9 @@ import "../assets/css/login.css"
 import { useNavigate } from 'react-router';
 import { useAppDispatch } from '../redux/redux-hooks';
 import { setUser } from '../redux/user';
+import { errorToast, successfulToast } from '../helper/toasties';
+import { CartType } from '../helper/types';
+import { setCart } from '../redux/cart';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -30,7 +33,7 @@ const LoginForm = () => {
         };
 
         fetch(
-            "https://capstone-server-production.up.railway.app/api/auth/login",
+            `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
             requestOptions
         )
             .then((response) => response.json())
@@ -41,13 +44,20 @@ const LoginForm = () => {
                     setEmail('');
                     setPassword('');
                     localStorage.setItem("user", JSON.stringify(user))
+                    fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${user.id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let cartObj: CartType = data.data
+                            dispatch(setCart(cartObj))
+                        })
+                    successfulToast("You have successfully Logged in")
                     navigate("/")
                 } else {
                     console.log(data)
                     if (data.error) {
-                        alert(data.error.message)
+                        errorToast(data.error.message)
                     } else {
-                        alert(data.message)
+                        errorToast(data.message)
                     }
                 }
 

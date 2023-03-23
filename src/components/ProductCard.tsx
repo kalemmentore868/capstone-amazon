@@ -1,48 +1,22 @@
 import React from 'react'
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { addItemToCart, setCart } from '../redux/cart';
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
-import { Product } from './HomePageComponents/DisplayProducts';
+import "../assets/css/ProductCard.css"
+import { ProductType } from '../helper/types';
+import { successfulToast } from '../helper/toasties';
 
-const StyledCard = styled(Card)`
-  margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  transition: all 0.3s;
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const StyledCardImg = styled(Card.Img)`
-  height: 300px;
-  object-fit: center;
-  border-bottom: 1px solid grey;
-`
-
-const StyledCardTitle = styled(Card.Title)`
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-`;
-
-const StyledCardPrice = styled(Card.Text)`
-  font-size: 1.2em;
-  color: #555;
-`;
 
 interface props {
-  product: Product
+  product: ProductType
 }
 
 const ProductCard: React.FC<props> = ({ product }) => {
 
   const dispatch = useAppDispatch();
   let cartItem = {
-    productId: product._id,
+    productId: product.id,
     name: product.title,
     quantity: 1,
     price: product.price,
@@ -59,42 +33,43 @@ const ProductCard: React.FC<props> = ({ product }) => {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${user.token}`
         },
-        body: JSON.stringify({ productId: product._id, quantity: 1 }),
+        body: JSON.stringify({ productId: product.id, quantity: 1 }),
       };
-      fetch(`http://localhost:5000/api/cart/${user._id}`,
+      fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${user.id}`,
         requestOptions)
         .then(response => response.json())
 
         .then(data => {
 
-          dispatch(setCart(data))
+          dispatch(setCart(data.data))
         })
         .catch(err => console.log(err))
     } else {
       dispatch(addItemToCart(cartItem))
     }
+    successfulToast("Added to cart!")
   }
 
   return (
-    <StyledCard>
-      <StyledCardImg variant="top" src={product.img_url} />
+    <Card className="product-card1">
+      <Card.Img className="product-card1-img" variant="top" src={product.img_url} />
       <Card.Body className="rubiks-font">
         <Row className="mb-3">
           <Col xs={9}>
-            <StyledCardTitle>{product.title}</StyledCardTitle>
+            <Card.Title className="product-card1-text ">{product.title}</Card.Title>
           </Col>
           <Col>
-            <StyledCardPrice>${product.price}</StyledCardPrice>
+            <Card.Text className="product-card1-price">${product.price}</Card.Text>
           </Col>
         </Row>
 
         <Button variant="primary me-3 mb-3" onClick={addToCart}>Add to Cart</Button>
-        <Link to={`products/${product._id}`}>
+        <Link to={`products/${product.id}`}>
           <Button variant="success mb-3" >See More</Button>
         </Link>
 
       </Card.Body>
-    </StyledCard>
+    </Card>
   )
 }
 

@@ -3,12 +3,12 @@ import { Button } from 'react-bootstrap'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import { Link } from 'react-router-dom'
+import { ProductType } from '../../helper/types'
 import { addItemToCart, setCart } from '../../redux/cart'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks'
-import { Product } from '../HomePageComponents/DisplayProducts'
 
 interface props {
-    product: Product
+    product: ProductType
 }
 
 const ProductInfo: React.FC<props> = ({ product }) => {
@@ -25,9 +25,9 @@ const ProductInfo: React.FC<props> = ({ product }) => {
                     "Content-Type": "application/json",
                     'Authorization': `Bearer ${user.token}`
                 },
-                body: JSON.stringify({ productId: product._id, quantity: 1 }),
+                body: JSON.stringify({ productId: product.id, quantity: 1 }),
             };
-            fetch(`http://localhost:5000/api/cart/${user._id}`,
+            fetch(`http://localhost:5000/api/cart/${user.id}`,
                 requestOptions)
                 .then(response => response.json())
 
@@ -38,7 +38,7 @@ const ProductInfo: React.FC<props> = ({ product }) => {
                 .catch(err => console.log(err))
         } else {
             dispatch(addItemToCart({
-                productId: product._id,
+                productId: product.id,
                 name: product.title,
                 quantity: 1,
                 price: product.price,

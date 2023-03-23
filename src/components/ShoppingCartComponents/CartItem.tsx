@@ -4,8 +4,9 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import { BiMinus, BiPlus, BiTrash } from "react-icons/bi"
-import { addItemToCart, CartItem as CartItemType, reduceItemQuantity, removeItemFromCart, setCart } from '../../redux/cart';
+import { addItemToCart, reduceItemQuantity, removeItemFromCart, setCart } from '../../redux/cart';
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks';
+import { CartItemType } from '../../helper/types';
 
 interface props {
     item: CartItemType
@@ -34,7 +35,7 @@ const CartItem: React.FC<props> = ({ item }) => {
                 },
                 body: JSON.stringify({ productId: item.productId, qty }),
             };
-            fetch(`http://localhost:5000/api/cart/${user._id}`,
+            fetch(`http://localhost:5000/api/cart/${user.id}`,
                 requestOptions)
                 .then(response => {
                     return response.json()
@@ -67,7 +68,7 @@ const CartItem: React.FC<props> = ({ item }) => {
                     'Authorization': `Bearer ${user.token}`
                 },
             };
-            fetch(`http://localhost:5000/api/cart/${user._id}/${item.productId}`,
+            fetch(`http://localhost:5000/api/cart/${user.id}/${item.productId}`,
                 requestOptions)
                 .then(response => response.json())
 

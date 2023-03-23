@@ -6,18 +6,18 @@ import Row from 'react-bootstrap/esm/Row'
 import "../assets/css/productDetails.css"
 import ProductImages from '../components/ProductDescriptionComponents/ProductImages'
 import ProductInfo from '../components/ProductDescriptionComponents/ProductInfo'
-import RelatedProducts from '../components/ProductDescriptionComponents/RelatedProducts'
-import { Product } from '../components/HomePageComponents/DisplayProducts'
+import { ProductType } from '../helper/types';
+
 
 const ProductDescriptionPage = () => {
 
 
-    const [product, setProduct] = useState<Product>({
+    const [product, setProduct] = useState<ProductType>({
         title: "",
         description: "",
         price: 0,
         img_url: "",
-        _id: ""
+        id: 0
     });
 
     const { id } = useParams()

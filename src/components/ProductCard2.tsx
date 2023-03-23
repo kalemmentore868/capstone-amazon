@@ -3,13 +3,18 @@ import { Card } from 'react-bootstrap';
 import { FaEye, FaShoppingCart } from 'react-icons/fa';
 import { addItemToCart, setCart } from '../redux/cart';
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
+import { Link } from 'react-router-dom';
 import '../assets/css/ProductCard2.css';
+import { ProductType } from '../helper/types';
+import { successfulToast } from '../helper/toasties';
 
 
-const ProductCard2 = () => {
+interface props {
+    product: ProductType
+}
+
+const ProductCard2: React.FC<props> = ({ product }) => {
     const [showIcons, setShowIcons] = useState(false);
-
-
 
     const handleMouseEnter = () => {
         setShowIcons(true);
@@ -18,6 +23,41 @@ const ProductCard2 = () => {
     const handleMouseLeave = () => {
         setShowIcons(false);
     };
+
+    const dispatch = useAppDispatch();
+    let cartItem = {
+        productId: product.id,
+        name: product.title,
+        quantity: 1,
+        price: product.price,
+        img_url: product.img_url
+    }
+
+    const user = useAppSelector((state) => state.user)
+
+    const addToCart = () => {
+        if (user && user.token) {
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({ productId: product.id, quantity: 1 }),
+            };
+            fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${user.id}`,
+                requestOptions)
+                .then(response => response.json())
+
+                .then(data => {
+                    dispatch(setCart(data.data))
+                })
+                .catch(err => console.log(err))
+        } else {
+            dispatch(addItemToCart(cartItem))
+        }
+        successfulToast("Added To Cart")
+    }
 
     return (
         <Card
@@ -28,25 +68,27 @@ const ProductCard2 = () => {
             <div className="product-card-img-container">
                 <Card.Img
                     variant="top"
-                    src="https://images.unsplash.com/photo-1528279027-68f0d7fce9f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc3QlMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                    src={product.img_url}
                     className="product-card-img"
                 />
                 {showIcons && (
                     <div className="product-card-overlay">
-                        <FaEye size={50} className="product-card-overlay-icon me-4" />
-                        <FaShoppingCart size={50} className="product-card-overlay-icon" />
+                        <Link to={`products/${product.id}`}>
+                            <FaEye size={50} className="product-card-overlay-icon me-4" />
+                        </Link>
+                        <FaShoppingCart size={50} onClick={addToCart} className="product-card-overlay-icon" />
                     </div>
                 )}
             </div>
             <Card.Body>
-                <Card.Title className="product-card-title">Sub and Fries Combo</Card.Title>
+                <Card.Title className="product-card-title">{product.title}</Card.Title>
                 <Card.Text className="product-card-rating">
                     {[...Array(5)].map((_, i) => (
                         <span key={i} className="product-card-star">&#9733;</span>
                     ))}
                 </Card.Text>
                 <Card.Text className="product-card-price text-muted">
-                    $35
+                    ${product.price}
                 </Card.Text>
             </Card.Body>
         </Card>

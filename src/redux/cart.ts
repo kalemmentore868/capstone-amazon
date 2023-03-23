@@ -1,20 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartItemType, CartType } from "../helper/types";
 
-export interface CartItem {
-  productId: string;
-  name: string;
-  quantity: number;
-  price: number;
-  img_url: string;
-}
-
-interface Cart {
-  userId: string;
-  items: CartItem[];
-  bill: number;
-}
-
-const initialState: Cart = {
+const initialState: CartType = {
   userId: "",
   items: [],
   bill: 0,
@@ -24,7 +11,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItemToCart: (state, action: PayloadAction<CartItem>) => {
+    addItemToCart: (state, action: PayloadAction<CartItemType>) => {
       //checks to see if the item is in the cart
       const itemInCart = state.items.some(
         (item) => item.productId == action.payload.productId
@@ -41,13 +28,13 @@ export const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state));
     },
 
-    removeItemFromCart: (state, action: PayloadAction<string>) => {
+    removeItemFromCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter(
         (item) => item.productId != action.payload
       );
       localStorage.setItem("cart", JSON.stringify(state));
     },
-    reduceItemQuantity: (state, action: PayloadAction<string>) => {
+    reduceItemQuantity: (state, action: PayloadAction<number>) => {
       state.items = state.items.map((item) => {
         if (item.productId == action.payload) {
           item.quantity--;
@@ -63,7 +50,8 @@ export const cartSlice = createSlice({
       let numOr0 = (n: any) => (isNaN(n) ? 0 : n);
       state.bill = totals.reduce((a, b) => numOr0(a) + numOr0(b), 0);
     },
-    setCart: (state, action: PayloadAction<Cart>) => {
+    setCart: (state, action: PayloadAction<CartType>) => {
+      localStorage.setItem("cart", JSON.stringify(action.payload));
       return action.payload;
     },
   },

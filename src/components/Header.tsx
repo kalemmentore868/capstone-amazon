@@ -8,6 +8,7 @@ import { AiOutlineShopping } from "react-icons/ai"
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/user';
+import { successfulToast } from '../helper/toasties';
 
 
 const Header = () => {
@@ -18,6 +19,7 @@ const Header = () => {
 
     const logoutUser = () => {
         localStorage.removeItem("user")
+        successfulToast("Successfully logged out!")
         dispatch(logout())
 
     }

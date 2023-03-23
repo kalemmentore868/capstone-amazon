@@ -19,7 +19,7 @@ export const dummyData2 = [
     title: "Alfredo",
     description: "yadda yadda yadda",
     price: 40,
-    _id: 1,
+    id: 1,
   },
   {
     img_url:
@@ -27,7 +27,7 @@ export const dummyData2 = [
     title: "Nuggets and Fries",
     description: "yadda yadda yadda",
     price: 30,
-    _id: 2,
+    id: 2,
   },
   {
     img_url:
@@ -35,7 +35,7 @@ export const dummyData2 = [
     title: "Hot dogs",
     description: "yadda yadda yadda",
     price: 12,
-    _id: 3,
+    id: 3,
   },
 ];
 

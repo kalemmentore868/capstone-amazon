@@ -13,7 +13,7 @@ interface GridProps {
 }
 
 const Grid: FC<GridProps> = ({ rows, data, text }) => {
-    console.log(data)
+
 
     // @ts-ignore
     let rowsArr = [...Array(rows).keys()]
@@ -24,13 +24,13 @@ const Grid: FC<GridProps> = ({ rows, data, text }) => {
     return (
         <Container className="py-3 my-4">
             <h1 className="mb-5 text-left curly">{text} </h1>
-            {rowsArr.map(row => {
+            {rowsArr.map((row, index) => {
                 return (
-                    <Row>
+                    <Row key={index}>
                         {colsArr.map((col, index) => {
 
                             return (
-                                <Col lg={4} md={12}>
+                                <Col lg={4} md={12} key={index}>
                                     <ProductCard product={data[index]} />
                                 </Col>
                             )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -8,8 +8,11 @@ import Card from 'react-bootstrap/Card';
 import { FaUser, FaLock, FaKey } from "react-icons/fa"
 import { GrMail } from "react-icons/gr"
 import { useNavigate } from 'react-router';
-import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
+import { useAppDispatch } from '../redux/redux-hooks';
 import { setUser } from '../redux/user';
+import { errorToast, successfulToast } from '../helper/toasties';
+import { CartType, UserType } from '../helper/types';
+import { setCart } from '../redux/cart';
 
 
 const SignUpForm = () => {
@@ -22,10 +25,10 @@ const SignUpForm = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-
     //@ts-ignore
     const handleSubmit = (e) => {
         e.preventDefault()
+
         const formValues = {
             first_name: firstName,
             last_name: lastName,
@@ -39,12 +42,12 @@ const SignUpForm = () => {
         };
 
         fetch(
-            "https://capstone-server-production.up.railway.app/api/auth/register",
+            `${process.env.REACT_APP_API_ENDPOINT}/auth/register`,
             requestOptions
         )
             .then((response) => response.json())
             .then((data) => {
-                const user = data.data
+                const user: UserType = data.data
                 if (user) {
                     dispatch(setUser(user))
                     setFirstName('');
@@ -53,13 +56,20 @@ const SignUpForm = () => {
                     setPassword('');
                     setConfirmPassword("")
                     localStorage.setItem("user", JSON.stringify(user))
+                    fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${user.id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let cartObj: CartType = data.data
+                            dispatch(setCart(cartObj))
+                        })
+                    successfulToast("You Have Successfully Created Your Account!")
                     navigate("/")
                 } else {
                     console.log(data)
                     if (data.error) {
-                        alert(data.error.message)
+                        errorToast(data.error.message)
                     } else {
-                        alert(data.message)
+                        errorToast(data.message)
                     }
 
                 }
