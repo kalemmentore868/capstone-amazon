@@ -100,15 +100,12 @@ export const cartSlice = createSlice({
             return item;
           }))
         : (state.cart.items = [...state.cart.items, action.payload]);
-
-      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
 
     removeItemFromCart: (state, action: PayloadAction<number>) => {
       state.cart.items = state.cart.items.filter(
         (item) => item.productId != action.payload
       );
-      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     reduceItemQuantity: (state, action: PayloadAction<number>) => {
       state.cart.items = state.cart.items.map((item) => {
@@ -117,7 +114,6 @@ export const cartSlice = createSlice({
         }
         return item;
       });
-      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     setBill: (state) => {
       const totals = state.cart.items.map((item) => {
@@ -125,11 +121,16 @@ export const cartSlice = createSlice({
       });
       let numOr0 = (n: any) => (isNaN(n) ? 0 : n);
       state.cart.bill = totals.reduce((a, b) => numOr0(a) + numOr0(b), 0);
-      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     setCart: (state, action: PayloadAction<CartType>) => {
-      localStorage.setItem("cart", JSON.stringify(action.payload));
       state.cart = action.payload;
+    },
+    resetCart: (state) => {
+      state.cart = {
+        bill: 0,
+        userId: "",
+        items: [],
+      };
     },
   },
   extraReducers: (builder) => {
@@ -195,6 +196,7 @@ export const {
   reduceItemQuantity,
   setBill,
   setCart,
+  resetCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

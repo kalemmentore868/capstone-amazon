@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     let cart = localStorage.getItem("cart")
 
-    if (cart != null) {
+    if (cart) {
       cart = JSON.parse(cart)
       //@ts-ignore
       dispatch(setCart(cart))

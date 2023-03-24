@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/user';
 import { successfulToast } from '../helper/toasties';
-import { fetchCartItems } from '../redux/cart';
+import { fetchCartItems, resetCart, setCart } from '../redux/cart';
 
 
 const Header = () => {
@@ -17,19 +17,26 @@ const Header = () => {
     const { user } = useAppSelector((state) => state.user)
     const dispatch = useAppDispatch()
 
+
     useEffect(() => {
-        if (user) {
-            dispatch(fetchCartItems(user))
+        if (cart) {
+            localStorage.setItem("cart", JSON.stringify(cart))
+        } else {
+            localStorage.removeItem("cart")
         }
 
 
-    }, [user])
+
+    }, [cart])
 
 
     const logoutUser = () => {
         localStorage.removeItem("user")
+        localStorage.removeItem("cart")
+
         successfulToast("Successfully logged out!")
         dispatch(logout())
+        dispatch(resetCart())
 
     }
 

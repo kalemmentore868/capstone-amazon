@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { UserState, UserType } from "../helper/types";
 import axios from "axios";
+import { saveToLocalStorage } from "./helpers";
 
 interface LoginType {
   email: string;
@@ -15,25 +16,31 @@ const initialState: UserState = {
 
 export const signUpUser = createAsyncThunk(
   "user/signUpUser",
-  async (userData: UserType) => {
+  async (userData: UserType, { dispatch }) => {
     const response = await axios.post(
       `${process.env.REACT_APP_API_ENDPOINT}/auth/register`,
       userData
     );
 
-    localStorage.setItem("user", JSON.stringify(response.data.data));
+    let user = response.data.data;
+    if (user) {
+      await saveToLocalStorage(user, dispatch);
+    }
     return response.data.data;
   }
 );
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (userCred: LoginType) => {
+  async (userCred: LoginType, { dispatch }) => {
     const response = await axios.post(
       `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
       userCred
     );
-    localStorage.setItem("user", JSON.stringify(response.data.data));
+    let user = response.data.data;
+    if (user) {
+      await saveToLocalStorage(user, dispatch);
+    }
     return response.data.data;
   }
 );
