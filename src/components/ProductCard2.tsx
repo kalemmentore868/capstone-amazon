@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { FaEye, FaShoppingCart } from 'react-icons/fa';
-import { addItemToCart, setCart } from '../redux/cart';
+import { addItemToCart, postAddToCart, setBill, setCart } from '../redux/cart';
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import { Link } from 'react-router-dom';
 import '../assets/css/ProductCard2.css';
@@ -33,28 +33,22 @@ const ProductCard2: React.FC<props> = ({ product }) => {
         img_url: product.img_url
     }
 
-    const user = useAppSelector((state) => state.user)
+    const user = useAppSelector((state) => state.user.user)
 
     const addToCart = () => {
         if (user && user.token) {
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify({ productId: product.id, quantity: 1 }),
-            };
-            fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${user.id}`,
-                requestOptions)
-                .then(response => response.json())
 
-                .then(data => {
-                    dispatch(setCart(data.data))
-                })
-                .catch(err => console.log(err))
+            const cartData = {
+                productId: product.id,
+                userId: user.id,
+                quantity: 1,
+                token: user.token,
+            }
+            dispatch(postAddToCart(cartData))
+
         } else {
             dispatch(addItemToCart(cartItem))
+            dispatch(setBill())
         }
         successfulToast("Added To Cart")
     }

@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import { BiMinus, BiPlus, BiTrash } from "react-icons/bi"
-import { addItemToCart, reduceItemQuantity, removeItemFromCart, setCart } from '../../redux/cart';
+import { addItemToCart, postDeleteCartItem, postUpdateCart, reduceItemQuantity, removeItemFromCart, setCart } from '../../redux/cart';
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks';
 import { CartItemType } from '../../helper/types';
 
@@ -14,7 +14,7 @@ interface props {
 
 const CartItem: React.FC<props> = ({ item }) => {
     const dispatch = useAppDispatch()
-    const user = useAppSelector((state) => state.user)
+    const user = useAppSelector((state) => state.user.user)
 
     const updateCartItem = (action: string) => {
 
@@ -25,27 +25,13 @@ const CartItem: React.FC<props> = ({ item }) => {
             } else if (action === "-") {
                 qty = item.quantity - 1
             }
-
-
-            const requestOptions = {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify({ productId: item.productId, qty }),
-            };
-            fetch(`http://localhost:5000/api/cart/${user.id}`,
-                requestOptions)
-                .then(response => {
-                    return response.json()
-                })
-
-                .then(data => {
-                    console.log(data)
-                    dispatch(setCart(data))
-                })
-                .catch(err => console.log(err))
+            const cartData = {
+                productId: item.productId,
+                userId: user.id,
+                token: user.token,
+                quantity: qty
+            }
+            dispatch(postUpdateCart(cartData))
         } else {
 
             if (action === "+") {
@@ -61,22 +47,15 @@ const CartItem: React.FC<props> = ({ item }) => {
 
     const deleteCartItem = () => {
         if (user && user.token) {
-            const requestOptions = {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${user.token}`
-                },
-            };
-            fetch(`http://localhost:5000/api/cart/${user.id}/${item.productId}`,
-                requestOptions)
-                .then(response => response.json())
 
-                .then(data => {
-                    console.log(data)
-                    dispatch(setCart(data))
-                })
-                .catch(err => console.log(err))
+            const cartData = {
+                productId: item.productId,
+                userId: user.id,
+                token: user.token,
+                quantity: 0
+            }
+
+            dispatch(postDeleteCartItem(cartData))
         } else {
             dispatch(removeItemFromCart(item.productId))
         }

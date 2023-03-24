@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { BrowserRouter } from "react-router-dom"
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -8,9 +7,10 @@ import { setCart } from './redux/cart';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setUser } from './redux/user';
+import { useAppDispatch } from './redux/redux-hooks';
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     let cart = localStorage.getItem("cart")

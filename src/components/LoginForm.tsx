@@ -6,11 +6,10 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import "../assets/css/login.css"
 import { useNavigate } from 'react-router';
-import { useAppDispatch } from '../redux/redux-hooks';
-import { setUser } from '../redux/user';
+import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
+import { loginUser } from '../redux/user';
 import { errorToast, successfulToast } from '../helper/toasties';
-import { CartType } from '../helper/types';
-import { setCart } from '../redux/cart';
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -18,6 +17,9 @@ const LoginForm = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const error = useAppSelector((state) => state.user.error)
+    const user = useAppSelector((state) => state.user.user)
+
 
     //@ts-ignore
     const handleSubmit = (e) => {
@@ -26,43 +28,18 @@ const LoginForm = () => {
             email,
             password
         }
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formValues),
-        };
 
-        fetch(
-            `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
-            requestOptions
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                const user = data.data
-                if (user) {
-                    dispatch(setUser(user))
+        dispatch(loginUser(formValues))
+            .then(result => {
+                if (result.payload) {
                     setEmail('');
                     setPassword('');
-                    localStorage.setItem("user", JSON.stringify(user))
-                    fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${user.id}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            let cartObj: CartType = data.data
-                            dispatch(setCart(cartObj))
-                        })
-                    successfulToast("You have successfully Logged in")
+                    successfulToast("You Have Successfully Logged In!")
                     navigate("/")
                 } else {
-                    console.log(data)
-                    if (data.error) {
-                        errorToast(data.error.message)
-                    } else {
-                        errorToast(data.message)
-                    }
+                    errorToast("Incorrect Username or Password")
                 }
-
             })
-            .catch((err) => console.log(err));
 
     };
 

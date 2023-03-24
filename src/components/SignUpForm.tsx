@@ -8,11 +8,10 @@ import Card from 'react-bootstrap/Card';
 import { FaUser, FaLock, FaKey } from "react-icons/fa"
 import { GrMail } from "react-icons/gr"
 import { useNavigate } from 'react-router';
-import { useAppDispatch } from '../redux/redux-hooks';
-import { setUser } from '../redux/user';
+import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
+import { signUpUser } from '../redux/user';
 import { errorToast, successfulToast } from '../helper/toasties';
-import { CartType, UserType } from '../helper/types';
-import { setCart } from '../redux/cart';
+
 
 
 const SignUpForm = () => {
@@ -33,49 +32,24 @@ const SignUpForm = () => {
             first_name: firstName,
             last_name: lastName,
             email,
-            password
-        }
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formValues),
-        };
+            password,
 
-        fetch(
-            `${process.env.REACT_APP_API_ENDPOINT}/auth/register`,
-            requestOptions
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                const user: UserType = data.data
-                if (user) {
-                    dispatch(setUser(user))
-                    setFirstName('');
-                    setLastName('');
+        }
+
+
+        // @ts-ignore
+        dispatch(signUpUser(formValues))
+            .then(result => {
+                if (result.payload) {
                     setEmail('');
                     setPassword('');
-                    setConfirmPassword("")
-                    localStorage.setItem("user", JSON.stringify(user))
-                    fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${user.id}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            let cartObj: CartType = data.data
-                            dispatch(setCart(cartObj))
-                        })
-                    successfulToast("You Have Successfully Created Your Account!")
+                    successfulToast("You Have Successfully Logged In!")
                     navigate("/")
                 } else {
-                    console.log(data)
-                    if (data.error) {
-                        errorToast(data.error.message)
-                    } else {
-                        errorToast(data.message)
-                    }
-
+                    errorToast("Something went wrong, Try again")
                 }
-
             })
-            .catch((err) => console.log(err));
+
 
     };
 

@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
-import Logo from './Logo'
 import SearchBar from './SearchBar';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,13 +8,23 @@ import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/user';
 import { successfulToast } from '../helper/toasties';
+import { fetchCartItems } from '../redux/cart';
 
 
 const Header = () => {
 
-    const cart = useAppSelector((state) => state.cart)
-    const user = useAppSelector((state) => state.user)
+    const cart = useAppSelector((state) => state.cart.cart)
+    const { user } = useAppSelector((state) => state.user)
     const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (user) {
+            dispatch(fetchCartItems(user))
+        }
+
+
+    }, [user])
+
 
     const logoutUser = () => {
         localStorage.removeItem("user")

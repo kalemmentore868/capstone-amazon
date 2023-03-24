@@ -12,6 +12,12 @@ export interface CartType {
   bill: number;
 }
 
+export interface CartState {
+  cart: CartType;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
 export interface ProductType {
   id: number;
   title: string;
@@ -26,11 +32,17 @@ export interface ProductType {
 }
 
 export interface UserType {
-  id?: number;
+  id: number;
   first_name: string;
   last_name: string;
   email: string;
-  is_admin: boolean;
-  phone_number: string;
+  is_admin?: boolean;
+  phone_number?: string;
   token?: string;
+}
+
+export interface UserState {
+  user: UserType | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
 }
