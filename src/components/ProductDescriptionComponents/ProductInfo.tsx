@@ -18,33 +18,33 @@ const ProductInfo: React.FC<props> = ({ product }) => {
     const user = useAppSelector((state) => state.user)
 
     const addToCart = () => {
-        if (user && user.token) {
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify({ productId: product.id, quantity: 1 }),
-            };
-            fetch(`http://localhost:5000/api/cart/${user.id}`,
-                requestOptions)
-                .then(response => response.json())
+        // if (user && user.token) {
+        //     const requestOptions = {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             'Authorization': `Bearer ${user.token}`
+        //         },
+        //         body: JSON.stringify({ productId: product.id, quantity: 1 }),
+        //     };
+        //     fetch(`http://localhost:5000/api/cart/${user.id}`,
+        //         requestOptions)
+        //         .then(response => response.json())
 
-                .then(data => {
+        //         .then(data => {
 
-                    dispatch(setCart(data))
-                })
-                .catch(err => console.log(err))
-        } else {
-            dispatch(addItemToCart({
-                productId: product.id,
-                name: product.title,
-                quantity: 1,
-                price: product.price,
-                img_url: product.img_url
-            }))
-        }
+        //             dispatch(setCart(data))
+        //         })
+        //         .catch(err => console.log(err))
+        // } else {
+        //     dispatch(addItemToCart({
+        //         productId: product.id,
+        //         name: product.title,
+        //         quantity: 1,
+        //         price: product.price,
+        //         img_url: product.img_url
+        //     }))
+        // }
     }
     return (
         <Col lg={8}>

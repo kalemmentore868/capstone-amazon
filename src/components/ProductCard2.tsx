@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { FaEye, FaShoppingCart } from 'react-icons/fa';
-import { addItemToCart, postAddToCart, setBill, setCart } from '../redux/cart';
-import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import { Link } from 'react-router-dom';
 import '../assets/css/ProductCard2.css';
 import { ProductType } from '../helper/types';
-import { successfulToast } from '../helper/toasties';
+import { useAddToCart } from '../helper/UsefulFuntions';
 
 
 interface props {
@@ -15,6 +13,7 @@ interface props {
 
 const ProductCard2: React.FC<props> = ({ product }) => {
     const [showIcons, setShowIcons] = useState(false);
+    const { addToCart } = useAddToCart(product)
 
     const handleMouseEnter = () => {
         setShowIcons(true);
@@ -23,35 +22,6 @@ const ProductCard2: React.FC<props> = ({ product }) => {
     const handleMouseLeave = () => {
         setShowIcons(false);
     };
-
-    const dispatch = useAppDispatch();
-    let cartItem = {
-        productId: product.id,
-        name: product.title,
-        quantity: 1,
-        price: product.price,
-        img_url: product.img_url
-    }
-
-    const user = useAppSelector((state) => state.user.user)
-
-    const addToCart = () => {
-        if (user && user.token) {
-
-            const cartData = {
-                productId: product.id,
-                userId: user.id,
-                quantity: 1,
-                token: user.token,
-            }
-            dispatch(postAddToCart(cartData))
-
-        } else {
-            dispatch(addItemToCart(cartItem))
-            dispatch(setBill())
-        }
-        successfulToast("Added To Cart")
-    }
 
     return (
         <Card

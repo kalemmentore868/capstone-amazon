@@ -1,11 +1,9 @@
 import React from 'react'
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { addItemToCart, postAddToCart, setBill, setCart } from '../redux/cart';
-import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import "../assets/css/ProductCard.css"
 import { ProductType } from '../helper/types';
-import { successfulToast } from '../helper/toasties';
+import { useAddToCart } from '../helper/UsefulFuntions';
 
 
 interface props {
@@ -13,34 +11,8 @@ interface props {
 }
 
 const ProductCard: React.FC<props> = ({ product }) => {
+  const { addToCart } = useAddToCart(product)
 
-  const dispatch = useAppDispatch();
-  let cartItem = {
-    productId: product.id,
-    name: product.title,
-    quantity: 1,
-    price: product.price,
-    img_url: product.img_url
-  }
-
-  const user = useAppSelector((state) => state.user.user)
-
-  const addToCart = () => {
-    if (user && user.token) {
-      const cartData = {
-        productId: product.id,
-        userId: user.id,
-        token: user.token,
-        quantity: 1
-      }
-      dispatch(postAddToCart(cartData))
-
-    } else {
-      dispatch(addItemToCart(cartItem))
-      dispatch(setBill())
-    }
-    successfulToast("Added to cart!")
-  }
 
   return (
     <Card className="product-card1">
