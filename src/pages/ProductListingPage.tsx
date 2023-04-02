@@ -5,11 +5,11 @@ import { dummyData2 } from '../helper/heroData';
 import ProductCard3 from '../components/ProductCard3';
 import CategoriesFilter from '../components/ProductComponents/CategoriesFilter';
 import PriceFilter from '../components/ProductComponents/PriceFilter';
-import { useScrolling, useWindowScroll, useWindowSize } from "react-use";
+import { useWindowScroll, useWindowSize } from "react-use";
 import { BiFilterAlt } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import SortProducts from '../components/ProductComponents/SortProducts';
-
+import { Link } from 'react-router-dom';
 
 const ProductListing: React.FC = () => {
     const { width } = useWindowSize()

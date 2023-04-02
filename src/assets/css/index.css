@@ -46,17 +46,6 @@ a {
   background-color: #f4f4f4;
 }
 
-.sort {
-  background-color: #e5e5e5;
-  color: black;
-  border: none;
-}
-
-.sort:hover {
-  background-color: #d8d3d3;
-  color: black;
-}
-
 @media screen and (max-width: 768px) {
   .mobile-filter {
     position: absolute;

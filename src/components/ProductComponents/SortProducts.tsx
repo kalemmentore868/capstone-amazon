@@ -10,7 +10,7 @@ interface Props {
 const SortProducts: React.FC<Props> = ({ sortOptions, selectedOption, onSelectOption }) => {
     return (
         <Dropdown>
-            <Dropdown.Toggle className="sort " id="dropdown-sort">
+            <Dropdown.Toggle variant="success" className="sort " id="dropdown-sort">
                 Sort by: {selectedOption}
             </Dropdown.Toggle>
 

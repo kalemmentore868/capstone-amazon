@@ -10,14 +10,20 @@ import CartTotal from '../components/ShoppingCartComponents/CartTotal';
 import { useAppSelector } from "../redux/redux-hooks";
 import { useDispatch } from 'react-redux';
 import { removeItemFromCart, setBill } from '../redux/cart';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, FloatingLabel, Form } from 'react-bootstrap';
+import ModalC from '../components/Modal';
 
 
 const ShoppingCartPage = () => {
+    const [show, setShow] = useState(false);
+    const [notes, setNotes] = useState("")
+
+
     const cart = useAppSelector((state) => state.cart.cart)
     const dispatch = useDispatch()
 
-
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         cart.items.map(item => {
@@ -33,9 +39,9 @@ const ShoppingCartPage = () => {
 
 
     return (
-        <section className="h-100">
-            <Container className='h-100 py-5'>
-                <Row className="d-flex justify-content-center align-items-center h-100">
+        <section >
+            <Container className=' py-5'>
+                <Row className="d-flex justify-content-center align-items-cente">
                     <CartHeading />
                     {cart.items.map((item) => {
                         return (
@@ -44,14 +50,25 @@ const ShoppingCartPage = () => {
                     })}
 
                     <CartTotal total={cart.bill} />
+
+                    <Form.Label  >Notes:</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        placeholder="Leave a note here for any other items"
+                        className='mb-4'
+                        style={{ height: '100px' }}
+                        onChange={(e) => setNotes(e.target.value)}
+                    />
+
+
                     <Card className="mb-4">
                         <Card.Body className="d-grid p-4">
-                            <Button size="lg" variant="warning" className="btn-block text-light" >Proceed to Pay</Button>
+                            <Button size="lg" variant="warning" onClick={handleShow} className="btn-block text-light" >Proceed to Pay</Button>
                         </Card.Body>
                     </Card>
                 </Row>
 
-
+                <ModalC total={cart.bill} show={show} handleClose={handleClose} notes={notes} />
 
             </Container>
 

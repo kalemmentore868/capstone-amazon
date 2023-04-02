@@ -1,52 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/esm/Row'
-import "../assets/css/productDetails.css"
-import ProductImages from '../components/ProductDescriptionComponents/ProductImages'
-import ProductInfo from '../components/ProductDescriptionComponents/ProductInfo'
-import { ProductType } from '../helper/types';
+import Container from 'react-bootstrap/Container';
+import { dummyData2 } from '../helper/heroData';
+import { Button } from 'react-bootstrap';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import "../assets/css/ProductDetails.css"
 
 
 const ProductDescriptionPage = () => {
 
-
-    const [product, setProduct] = useState<ProductType>({
-        title: "",
-        description: "",
-        price: 0,
-        img_url: "",
-        id: 0
-    });
-
-    const { id } = useParams()
-
-    useEffect(() => {
-        const fetchProduct = async () => {
-            const res = await fetch(`https://capstone-server-production.up.railway.app/api/products/${id}`);
-            const data = await res.json();
-            setProduct(data.data);
-        };
-
-        fetchProduct();
-    }, []);
+    const product = dummyData2[0]
 
 
     return (
-        <Container className="mb-5 py-5">
-            <Col lg={8} className="border p-3 main-section bg-white vh-100 ">
-                <Row className="hedding m-0 pl-3 pt-0 pb-3 mt-5 ">
-                    {product.title}
-                </Row>
-                <Row className="m-0">
-                    <ProductImages img={product.img_url} />
-                    <ProductInfo product={product} />
-                </Row>
-                {/* <RelatedProducts /> */}
-            </Col>
+        <Container className="details-section">
+            <Row>
+                <Col className="mb-3 d-flex justify-content-center">
+                    <img src={product.img_url} className="PD-img" />
+                </Col>
+                <Col>
+                    <div className="product-info">
+                        <h1 className="PD-title">{product.title}</h1>
+                        <p className="PD-desc">{product.description}</p>
+                        <span className="PD-price">${product.price}</span>
+                        <hr className="PD-line mb-3" />
+                        <div className="d-grid gap-2">
+                            <Button variant='outline-success' className='PD-button my-2'>Add To Cart</Button>
+                        </div>
+
+                        <hr className="PD-line my-3" />
+
+                        <div>Category: Burgers</div>
+                        <div>Share: <FaFacebook className='green' /> <FaTwitter className='green' /> <FaInstagram className='green' /> </div>
+
+                        <hr className="PD-line mt-3" />
+                    </div>
+                </Col>
+            </Row>
         </Container>
     )
+
+
 }
 
 export default ProductDescriptionPage

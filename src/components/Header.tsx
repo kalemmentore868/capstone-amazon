@@ -5,14 +5,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { AiOutlineShopping } from "react-icons/ai"
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../redux/user';
 import { successfulToast } from '../helper/toasties';
-import { fetchCartItems, resetCart, setCart } from '../redux/cart';
+import { resetCart } from '../redux/cart';
 
 
 const Header = () => {
 
+    const location = useLocation()
     const cart = useAppSelector((state) => state.cart.cart)
     const { user } = useAppSelector((state) => state.user)
     const dispatch = useAppDispatch()
@@ -54,27 +55,27 @@ const Header = () => {
                     <Nav>
 
                         <Link to="/">
-                            <span className="nav-link green">Home</span>
+                            <span className={location.pathname === "/" ? "nav-link green" : "nav-link"} >Home</span>
                         </Link>
 
                         <Link to="/products" >
-                            <span className="nav-link">Shop</span>
+                            <span className={location.pathname === "/products" ? "nav-link green" : "nav-link"}>Shop</span>
                         </Link>
 
                         <Link to="/best-seller">
-                            <span className="nav-link">Best Sellers</span>
+                            <span className={location.pathname === "/best-seller" ? "nav-link green" : "nav-link"}>Best Sellers</span>
                         </Link>
 
                         <Link to="/categories">
-                            <span className="nav-link">Categories</span>
+                            <span className={location.pathname === "/categories" ? "nav-link green" : "nav-link"}>Categories</span>
                         </Link>
 
                         {user && user.token ? (
                             <Nav.Link onClick={logoutUser} > Log out</Nav.Link>
                         ) : (
                             <>
-                                <Link to="/signup" ><span className="nav-link" >Sign Up</span></Link>
-                                <Link to="/login"><span className="nav-link">Login</span></Link>
+                                <Link to="/signup" ><span className={location.pathname === "/signup" ? "nav-link green" : "nav-link"}>Sign Up</span></Link>
+                                <Link to="/login"><span className={location.pathname === "/login" ? "nav-link green" : "nav-link"}>Login</span></Link>
                             </>
                         )}
 
@@ -82,7 +83,7 @@ const Header = () => {
 
 
                         <Link to="/checkout">
-                            <span className="nav-link"><AiOutlineShopping size="30px" />{cart.items.length}</span>
+                            <span className={location.pathname === "/checkout" ? "nav-link green" : "nav-link"}><AiOutlineShopping size="30px" />{cart.items.length}</span>
                         </Link>
 
                     </Nav>
