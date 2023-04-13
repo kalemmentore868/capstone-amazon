@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { addItemToCart, postAddToCart, setBill } from "../redux/cart";
 import { useAppDispatch, useAppSelector } from "../redux/redux-hooks";
 import { successfulToast } from "./toasties";
-import { ProductType, UserType } from "./types";
+import { ProductType } from "./types";
 
 export const useAddToCart = (product: ProductType) => {
   const user = useAppSelector((state) => state.user.user);
@@ -31,4 +33,73 @@ export const useAddToCart = (product: ProductType) => {
   };
 
   return { addToCart };
+};
+
+export const useFetchAllProducts = (
+  method: string,
+  url: string,
+  body: Object
+) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiData, setApiData] = useState<ProductType[]>([]);
+  const [apiError, setApiError] = useState("");
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await axios({
+          method: method,
+          url: url,
+          data: body,
+        });
+        const data: ProductType[] = await response?.data.data;
+
+        setApiData(data);
+        setIsLoading(false);
+      } catch (error) {
+        // @ts-ignore
+        setApiError(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url, method, body]);
+
+  return { isLoading, apiData, apiError };
+};
+
+export const useFetchSingleProduct = (
+  method: string,
+  url: string,
+  body: Object
+) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [apiData, setApiData] = useState<ProductType>();
+  const [apiError, setApiError] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios({
+          method: method,
+          url: url,
+          data: body,
+        });
+        const data: ProductType = await response?.data.data;
+
+        setApiData(data);
+        setIsLoading(false);
+      } catch (error) {
+        // @ts-ignore
+        setApiError(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url, method, body]);
+
+  return { isLoading, apiData, apiError };
 };
