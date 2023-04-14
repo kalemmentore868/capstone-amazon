@@ -31,3 +31,7 @@
 .cat-list {
   background-color: #e5e5e5;
 }
+
+.category-item.active-cat {
+  color: #60be74;
+}

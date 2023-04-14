@@ -1,16 +1,38 @@
-import React from 'react'
-import Grid from '../components/CategoryComponents/Grid'
-import { dummyData2 } from '../helper/heroData'
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import '../assets/css/categoryPage.css';
+import { useCategories } from '../helper/hooks';
 
-const ProductCategoryPage = () => {
+const CategoryPage = () => {
 
-    const data = [...dummyData2, ...dummyData2]
+    const getCategories = useCategories()
+    const categories = getCategories.data ?? [];
     return (
-        <div>
-            <Grid rows={4} data={data} text="Browse All Categories" />
+        <div className="category-page">
+            <Container>
+                <Row>
+                    <Col>
+                        <h1 className='text-center'>Categories</h1>
+                    </Col>
+                </Row>
+                <Row>
+                    {categories.map((category) => {
+                        return (
+                            <Col md={4} key={category.id}>
+                                <div className="category-card">
+                                    <img src={category.thumbnail} alt="category image" />
+                                    <h2 className="text-center mt-2">{category.title}</h2>
+                                    <p className="text-left mt-2">{category.description}</p>
+                                </div>
+                            </Col>
+                        )
+                    })}
+
+
+                </Row>
+            </Container>
         </div>
-    )
+    );
+};
 
-}
-
-export default ProductCategoryPage
+export default CategoryPage;

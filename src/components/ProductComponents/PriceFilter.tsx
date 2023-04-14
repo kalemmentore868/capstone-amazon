@@ -4,17 +4,12 @@ import '../../assets/css/PriceFilter.css';
 
 
 interface Props {
-    onPriceChange?: (priceRange: number[]) => void;
+    onPriceChange: (priceRange: number) => void;
+    price: number
 }
 
-const PriceFilter: React.FC<Props> = ({ onPriceChange }) => {
-    const [price, setPrice] = useState<number>(200);
+const PriceFilter: React.FC<Props> = ({ onPriceChange, price }) => {
 
-    // const handlePriceChange = (value: string[]) => {
-    //     const newPrice = [parseInt(value[0]), parseInt(value[1])];
-    //     setPrice(newPrice);
-    //     onPriceChange(newPrice);
-    // };
 
     return (
         <div className="price-filter mt-5">
@@ -23,7 +18,7 @@ const PriceFilter: React.FC<Props> = ({ onPriceChange }) => {
 
                 <Form.Range
                     value={price}
-                    onChange={(e) => setPrice(parseInt(e.target.value))}
+                    onChange={(e) => onPriceChange(parseInt(e.target.value))}
                     min={0}
                     max={200}
                     step={5}

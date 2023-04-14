@@ -1,0 +1,29 @@
+.category-page {
+  background-color: #fff;
+  padding: 50px 0;
+}
+
+.category-card {
+  background-color: #60be74;
+  color: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  min-height: 65vh;
+}
+
+.category-card h2 {
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.category-card img {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}

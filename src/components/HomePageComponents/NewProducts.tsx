@@ -3,8 +3,16 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import "../../assets/css/newProducts.css"
 import ProductCard2 from '../ProductCard2';
 import { dummyData2 } from '../../helper/heroData';
+import { useFetchAllProducts } from '../../helper/UsefulFuntions';
 
 const NewProducts = () => {
+
+    const { isLoading, apiError, apiData } = useFetchAllProducts(
+        "GET",
+        `${process.env.REACT_APP_API_ENDPOINT}/products`,
+        {}
+    );
+
     return (
         <Container>
             <Row className="mt-4">
@@ -20,7 +28,7 @@ const NewProducts = () => {
                 </Col>
             </Row>
             <Row className="mt-4">
-                {dummyData2.map((product, index) => (
+                {apiData.slice(0, 3).map((product, index) => (
                     <Col key={index} xs={12} md={4} className="mb-4">
                         <Card>
 

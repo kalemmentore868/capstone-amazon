@@ -22,7 +22,7 @@ export interface ProductType {
   id: number;
   title: string;
   description?: string;
-  //   category_id: number;
+  category_id: number;
   //   rating: number;
   //   is_best_seller: boolean;
   img_url: string;
@@ -45,4 +45,11 @@ export interface UserState {
   user: UserType | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+}
+
+export interface CategoryType {
+  id: number;
+  title: string;
+  description: string;
+  thumbnail: string;
 }

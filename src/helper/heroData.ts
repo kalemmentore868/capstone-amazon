@@ -5,13 +5,6 @@ import watch from "../assets/img/watch.avif";
 import headphone from "../assets/img/headphone.jpg";
 import bread from "../assets/img/bread.jpg";
 
-export interface HeroObj {
-  src: string;
-  alt: string;
-  title: string;
-  desc: string;
-}
-
 export const dummyData2 = [
   {
     img_url:

@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setUser } from './redux/user';
 import { useAppDispatch } from './redux/redux-hooks';
+import { QueryClientProvider } from "react-query"
+import { queryClient } from './helper/api';
 
 function App() {
   const dispatch = useAppDispatch()
@@ -34,14 +36,15 @@ function App() {
 
   return (
     <>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Header />
+          <RoutesList />
+          <ToastContainer />
+          <Footer />
 
-      <BrowserRouter>
-        <Header />
-        <RoutesList />
-        <ToastContainer />
-        <Footer />
-
-      </BrowserRouter>
+        </BrowserRouter>
+      </QueryClientProvider>
 
     </>
   );

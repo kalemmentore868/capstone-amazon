@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     sortOptions: string[];
@@ -7,7 +8,20 @@ interface Props {
     onSelectOption: (option: string) => void;
 }
 
+
+
 const SortProducts: React.FC<Props> = ({ sortOptions, selectedOption, onSelectOption }) => {
+
+    const [search, setSearch] = useSearchParams()
+
+    const handleSort = (option: string) => {
+        onSelectOption(option)
+        search.set("sort", option)
+        setSearch(search, {
+            replace: true
+        })
+    }
+
     return (
         <Dropdown>
             <Dropdown.Toggle variant="success" className="sort " id="dropdown-sort">
@@ -16,7 +30,7 @@ const SortProducts: React.FC<Props> = ({ sortOptions, selectedOption, onSelectOp
 
             <Dropdown.Menu>
                 {sortOptions.map(option => (
-                    <Dropdown.Item key={option} onClick={() => onSelectOption(option)}>
+                    <Dropdown.Item key={option} onClick={() => handleSort(option)}>
                         {option}
                     </Dropdown.Item>
                 ))}
