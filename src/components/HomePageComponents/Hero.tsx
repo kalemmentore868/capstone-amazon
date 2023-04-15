@@ -1,5 +1,6 @@
 import React from 'react';
 import { Carousel, Container, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../../assets/css/HeroCarousel.css';
 // @ts-ignore
 import food1 from "../../assets/img/fast-food1.jpg";
@@ -20,7 +21,10 @@ const HeroCarousel = () => {
                 <div className="slide1" style={style1} />
                 <Container className="overlay-text">
                     <h1>WTE Food Service</h1>
-                    <Button variant="success">Order Now</Button>
+                    <Link to="/products">
+                        <Button variant="success">Order Now</Button>
+                    </Link>
+
                 </Container>
             </Carousel.Item>
             <Carousel.Item>
