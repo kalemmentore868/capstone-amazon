@@ -1,0 +1,50 @@
+.search-container {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-s {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  position: absolute;
+  top: 53px; /* adjust as needed */
+  width: 280px; /* adjust as needed */
+  z-index: 1; /* to make sure the dropdown is on top of other elements */
+}
+
+.dropdown-s:empty {
+  border: none;
+}
+
+.dropdown-row-s {
+  cursor: pointer;
+  text-align: start;
+  margin: 2px 0;
+  background-color: white;
+  padding: 5px;
+}
+
+.drop-link-s {
+  color: black;
+  width: 100%;
+  display: inline-block;
+}
+
+.drop-link-s:hover {
+  color: black;
+}
+
+.dropdown-row-s:hover {
+  background-color: rgb(240, 234, 234);
+}
+
+input {
+  width: 220px;
+}
+
+.search-inner {
+  display: flex;
+}

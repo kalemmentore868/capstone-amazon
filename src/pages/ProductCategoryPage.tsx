@@ -1,12 +1,22 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { GridLoader } from 'react-spinners';
+import { CSSProperties } from 'styled-components';
 import '../assets/css/categoryPage.css';
+import Loader from '../components/Loader';
 import { useCategories } from '../helper/hooks';
 
 const CategoryPage = () => {
 
     const getCategories = useCategories()
     const categories = getCategories.data ?? [];
+
+
+
+    if (getCategories.isLoading) {
+        return <Loader />
+    }
+
     return (
         <div className="category-page">
             <Container>

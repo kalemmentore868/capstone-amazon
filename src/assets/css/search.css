@@ -19,3 +19,23 @@
   border: none;
   cursor: pointer;
 }
+
+.suggestions {
+  position: absolute;
+  top: 40px;
+  background-color: white;
+  z-index: 100;
+  padding: 15px;
+  border-radius: 10px;
+  left: 40px;
+}
+
+.suggestions li {
+  list-style: none;
+}
+
+@media screen and (max-width: 900px) {
+  .seach-box {
+    margin-top: 20px;
+  }
+}

@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { useFetchAllProducts } from '../helper/UsefulFuntions';
 import { Row, Col, Container } from 'react-bootstrap';
 import "../assets/css/productListing.css"
 import CategoriesFilter from '../components/ProductComponents/CategoriesFilter';
-import PriceFilter from '../components/ProductComponents/PriceFilter';
 import { useWindowScroll, useWindowSize } from "react-use";
 import { BiFilterAlt } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import SortProducts from '../components/ProductComponents/SortProducts';
-import { Link } from 'react-router-dom';
 import ProductContainer from '../components/ProductComponents/ProductContainer';
+import SearchBar from '../components/SearchBar';
 
 
 
@@ -27,7 +25,7 @@ const ProductListing: React.FC = () => {
     const { y } = useWindowScroll();
 
 
-    if (y > 0 && filterIsOpen) setFilterIsOpen(false)
+    if (y > 300 && filterIsOpen) setFilterIsOpen(false)
 
     const onSelectOption = (option: string) => {
         setFilters({ ...filters, sort: option })
@@ -37,34 +35,39 @@ const ProductListing: React.FC = () => {
         setFilters({ ...filters, category })
     }
 
-    const onPriceChange = (price: number) => {
-        setFilters({ ...filters, maxPrice: price })
-    }
-
     return (
         <>
-            <Container>
+            <Container className="py-3">
                 <Row >
                     <Col xs={12} md={8}>
                         <div className="d-flex justify-content-between py-3">
-                            {width > 768 ? <p>Showing..</p> : (
-                                <div onClick={() => setFilterIsOpen(true)} className="rubiks-font">
+                            {width > 768 ? <p className='text-muted'>Showing Results...</p> : (
+                                <div onClick={() => setFilterIsOpen(true)} className="rubiks-font hover">
                                     <BiFilterAlt /> <span>Filter</span>
                                 </div>
                             )}
                             <SortProducts sortOptions={sortOptions} selectedOption={filters.sort} onSelectOption={onSelectOption} />
+
+
                         </div>
+
+
 
                     </Col>
                     <ProductContainer />
                     <Col xs={12} md={4} className={filterIsOpen ? "mobile-filter open" : "mobile-filter"}>
                         {width > 768 ? <p></p> : (
-                            <div onClick={() => setFilterIsOpen(false)} className="rubiks-font hide-filter mx-4">
-                                <span>Hide filters</span> <IoMdClose />
+                            <div onClick={() => setFilterIsOpen(false)} className="rubiks-font hide-filter mx-4 hover">
+                                <span className="hover">Hide filters</span> <IoMdClose />
                             </div>
                         )}
+
+                        <SearchBar />
+
+                        <hr className='my-3' />
+
                         <CategoriesFilter selectCategory={onSelectCategory} />
-                        <PriceFilter onPriceChange={onPriceChange} price={filters.maxPrice} />
+
                     </Col>
                 </Row>
             </Container>

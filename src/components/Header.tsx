@@ -9,6 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../redux/user';
 import { successfulToast } from '../helper/toasties';
 import { resetCart } from '../redux/cart';
+import HeaderSearch from './HeaderSearch';
 
 
 const Header = () => {
@@ -42,15 +43,17 @@ const Header = () => {
     }
 
     return (
-        <Navbar expand="lg" sticky="top" className="grey-bg rubiks-font" >
+        <Navbar expand="lg" sticky="top" className="grey-bg rubiks-font p-3" >
             <Container>
                 <Navbar.Brand href="/" className="green">
                     What Tuh Eat
                 </Navbar.Brand>
-                <SearchBar />
+
+                <HeaderSearch />
                 <Navbar.Toggle aria-controls="navbarScroll" />
 
                 <Navbar.Collapse id="navberScroll" className="justify-content-evenly">
+
 
                     <Nav>
 

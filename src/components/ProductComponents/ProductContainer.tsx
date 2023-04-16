@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useProducts } from '../../helper/hooks';
 import { GridLoader } from "react-spinners"
 import ProductCard3 from '../ProductCard3';
-import { Col } from 'react-bootstrap';
+import { Col, Pagination } from 'react-bootstrap';
 import { CSSProperties } from 'styled-components';
+import BootstrapPagination from './CustomPagination';
+import Loader from '../Loader';
 
 
 
@@ -13,26 +15,35 @@ const ProductContainer = () => {
     const getProducts = useProducts()
     const products = getProducts.data ?? [];
 
-    const override: CSSProperties = {
-        display: "block",
-        margin: "0 auto",
-        borderColor: "red",
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 5;
+    const totalPages = Math.ceil(products.length / productsPerPage);
+
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
     };
 
-    if (getProducts.isLoading) {
-        return (
-            <Col xs={12} md={8} className="d-flex align-items-center justify-content-center vh-100">
-                <GridLoader color="#60be74"
+    const slicedProducts = products.slice(
+        (currentPage - 1) * productsPerPage,
+        currentPage * productsPerPage
+    );
 
-                    cssOverride={override}
-                    size={80} />
-            </Col>
-        )
+
+
+    if (getProducts.isLoading) {
+        return <Loader />
     }
 
     return (
         <Col xs={12} md={8}>
-            {products.map(data => <ProductCard3 key={data.id} product={data} />)}
+            {slicedProducts.map((product) => (
+                <ProductCard3 key={product.id} product={product} />
+            ))}
+            <BootstrapPagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </Col>
     )
 }
