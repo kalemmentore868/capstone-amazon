@@ -65,8 +65,8 @@ const Header = () => {
                             <span className={location.pathname === "/products" ? "nav-link green" : "nav-link"}>Shop</span>
                         </Link>
 
-                        <Link to="/best-seller">
-                            <span className={location.pathname === "/best-seller" ? "nav-link green" : "nav-link"}>Best Sellers</span>
+                        <Link to="/best-sellers">
+                            <span className={location.pathname === "/best-sellers" ? "nav-link green" : "nav-link"}>Best Sellers</span>
                         </Link>
 
                         <Link to="/categories">

@@ -35,6 +35,22 @@ export function useNewProducts(): UseQueryResult<ProductType[]> {
   );
 }
 
+export function useBestSellers(): UseQueryResult<ProductType[]> {
+  const [search] = useSearchParams();
+  return useQuery(
+    ["newProducts", search.toString()],
+    () =>
+      apiClient
+        .get("products?sort=popularity", {
+          params: search,
+        })
+        .then((res) => res.data.data),
+    {
+      staleTime: 120000,
+    }
+  );
+}
+
 export function useCategories(): UseQueryResult<CategoryType[]> {
   return useQuery(["categories"], () =>
     apiClient.get("categories").then((res) => res.data.data)

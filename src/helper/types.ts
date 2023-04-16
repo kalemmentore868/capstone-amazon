@@ -24,7 +24,7 @@ export interface ProductType {
   description?: string;
   category_id: number;
   //   rating: number;
-  //   is_best_seller: boolean;
+  is_best_seller: boolean;
   img_url: string;
   //   seller_id: number;
   price: number;

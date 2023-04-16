@@ -1,14 +1,17 @@
 import React from 'react'
 import ProductGrid from '../ProductComponents/ProductGrid'
 import { dummyData2 } from '../../helper/heroData'
+import { useBestSellers } from '../../helper/hooks'
+import BestSellerContainer from '../BestSellerContainer'
 
 const BestSellerSection = () => {
 
-    return (
-        <div>
-            <ProductGrid rows={1} data={dummyData2} text="Browse Best Sellers" />
-        </div>
-    )
+    const getBestSellers = useBestSellers()
+    const bestSellers = getBestSellers.data?.slice(0, 3) ?? [];
+
+
+
+    return <BestSellerContainer isLoading={getBestSellers.isLoading} bestSellers={bestSellers} />
 }
 
 export default BestSellerSection

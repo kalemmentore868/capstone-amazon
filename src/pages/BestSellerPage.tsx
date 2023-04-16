@@ -1,15 +1,18 @@
 import React from 'react'
-import ProductGrid from '../components/ProductComponents/ProductGrid'
-import { dummyData2 } from '../helper/heroData'
+import { Col, Container, Row } from 'react-bootstrap'
+import BestSellerContainer from '../components/BestSellerContainer'
+import Loader from '../components/Loader'
+import ProductCard from '../components/ProductCard'
+import { useBestSellers } from '../helper/hooks'
 
 const BestSellerPage = () => {
 
-    const data = [...dummyData2, ...dummyData2]
-    return (
-        <div>
-            <ProductGrid rows={4} data={data} text="Browse Best Sellers" />
-        </div>
-    )
+    const getBestSellers = useBestSellers()
+    const bestSellers = getBestSellers.data ?? [];
+    const filteredList = bestSellers.filter(product => product.is_best_seller === true)
+
+
+    return <BestSellerContainer isLoading={getBestSellers.isLoading} bestSellers={filteredList} />
 
 }
 

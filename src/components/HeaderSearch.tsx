@@ -2,11 +2,12 @@ import React, { ChangeEvent, useState } from 'react'
 import { useProducts } from '../helper/hooks';
 import "../assets/css/HeadingSearch.css"
 import Loader from './Loader';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const HeaderSearch = () => {
     const [value, setValue] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const navigate = useNavigate()
     const getProducts = useProducts()
     const products = getProducts.data ?? [];
 
@@ -21,8 +22,8 @@ const HeaderSearch = () => {
 
     const onSearch = (searchTerm: string) => {
         setValue(searchTerm);
-        // our api to fetch the search result
-        console.log("search ", searchTerm);
+        const chosenProduct = products.find(product => product.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        navigate(`/products/${chosenProduct?.id}`)
     };
 
     const handleBlur = () => {
