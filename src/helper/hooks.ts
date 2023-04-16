@@ -51,8 +51,24 @@ export function useBestSellers(): UseQueryResult<ProductType[]> {
   );
 }
 
+export function useSingleProduct(id: number): UseQueryResult<ProductType> {
+  return useQuery(
+    ["product"],
+    () => apiClient.get(`products/${id}`).then((res) => res.data.data),
+    {
+      staleTime: 120000,
+    }
+  );
+}
+
 export function useCategories(): UseQueryResult<CategoryType[]> {
   return useQuery(["categories"], () =>
     apiClient.get("categories").then((res) => res.data.data)
+  );
+}
+
+export function useSingleCategory(id: number): UseQueryResult<CategoryType> {
+  return useQuery(["category"], () =>
+    apiClient.get(`categories/${id}`).then((res) => res.data.data)
   );
 }
