@@ -1,11 +1,10 @@
 import { debounce } from 'lodash'
-import React, { useState } from 'react'
+import React from 'react'
 import Form from 'react-bootstrap/Form'
 import { BiSearchAlt } from "react-icons/bi"
 import { useSearchParams } from 'react-router-dom'
 import "../assets/css/search.css"
-import { useProducts } from '../helper/hooks'
-import Loader from './Loader'
+
 
 const SearchBar = () => {
     const [search, setSearch] = useSearchParams()

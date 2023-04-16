@@ -1,8 +1,4 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
 import BestSellerContainer from '../components/BestSellerContainer'
-import Loader from '../components/Loader'
-import ProductCard from '../components/ProductCard'
 import { useBestSellers } from '../helper/hooks'
 
 const BestSellerPage = () => {

@@ -1,9 +1,8 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import '../../assets/css/CategoriesFilter.css';
 import { useCategories } from '../../helper/hooks';
-import { useFetchAllCategories } from '../../helper/UsefulFuntions';
 
 interface props {
     selectCategory: (category: string) => void;

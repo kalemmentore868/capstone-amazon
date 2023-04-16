@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useProducts } from '../../helper/hooks';
-import { GridLoader } from "react-spinners"
 import ProductCard3 from '../ProductCard3';
-import { Col, Pagination } from 'react-bootstrap';
-import { CSSProperties } from 'styled-components';
+import { Col } from 'react-bootstrap';
 import BootstrapPagination from './CustomPagination';
 import Loader from '../Loader';
 

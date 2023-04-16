@@ -3,7 +3,6 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../../assets/css/category-section.css"
 import { useCategories } from "../../helper/hooks";
-import { useFetchAllCategories } from "../../helper/UsefulFuntions";
 import Loader from "../Loader";
 
 const CategorySection = () => {

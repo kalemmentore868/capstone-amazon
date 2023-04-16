@@ -1,6 +1,3 @@
-import React from 'react'
-import ProductGrid from '../ProductComponents/ProductGrid'
-import { dummyData2 } from '../../helper/heroData'
 import { useBestSellers } from '../../helper/hooks'
 import BestSellerContainer from '../BestSellerContainer'
 

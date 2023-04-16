@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { useState } from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import "../../assets/css/newProducts.css"
 import ProductCard2 from '../ProductCard2';
-import { dummyData2 } from '../../helper/heroData';
-import { useFetchAllProducts } from '../../helper/UsefulFuntions';
-import { useCategories, useNewProducts, useProducts } from '../../helper/hooks';
+import { useCategories, useNewProducts } from '../../helper/hooks';
 import { useSearchParams } from 'react-router-dom';
 import Loader from '../Loader';
 

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
-import SearchBar from './SearchBar';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { AiOutlineShopping } from "react-icons/ai"

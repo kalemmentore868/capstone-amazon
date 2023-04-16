@@ -3,7 +3,7 @@ import axios from "axios";
 import { addItemToCart, postAddToCart, setBill } from "../redux/cart";
 import { useAppDispatch, useAppSelector } from "../redux/redux-hooks";
 import { successfulToast } from "./toasties";
-import { CategoryType, ProductType } from "./types";
+import { ProductType } from "./types";
 
 export const useAddToCart = (product: ProductType | undefined) => {
   const user = useAppSelector((state) => state.user.user);
@@ -39,40 +39,6 @@ export const useAddToCart = (product: ProductType | undefined) => {
   return { addToCart };
 };
 
-export const useFetchAllProducts = (
-  method: string,
-  url: string,
-  body: Object
-) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiData, setApiData] = useState<ProductType[]>([]);
-  const [apiError, setApiError] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios({
-          method: method,
-          url: url,
-          data: body,
-        });
-        const data: ProductType[] = await response?.data.data;
-
-        setApiData(data);
-        setIsLoading(false);
-      } catch (error) {
-        // @ts-ignore
-        setApiError(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [url, method, body]);
-
-  return { isLoading, apiData, apiError };
-};
-
 export const useFetchSingleProduct = (
   method: string,
   url: string,
@@ -91,40 +57,6 @@ export const useFetchSingleProduct = (
           data: body,
         });
         const data: ProductType = await response?.data.data;
-
-        setApiData(data);
-        setIsLoading(false);
-      } catch (error) {
-        // @ts-ignore
-        setApiError(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [url, method, body]);
-
-  return { isLoading, apiData, apiError };
-};
-
-export const useFetchAllCategories = (
-  method: string,
-  url: string,
-  body: Object
-) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiData, setApiData] = useState<CategoryType[]>([]);
-  const [apiError, setApiError] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios({
-          method: method,
-          url: url,
-          params: body,
-        });
-        const data: CategoryType[] = await response?.data.data;
 
         setApiData(data);
         setIsLoading(false);

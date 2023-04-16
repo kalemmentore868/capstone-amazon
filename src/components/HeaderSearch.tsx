@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useProducts } from '../helper/hooks';
 import "../assets/css/HeadingSearch.css"
 import Loader from './Loader';

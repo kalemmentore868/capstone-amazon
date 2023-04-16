@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-
 import CartItem from '../components/ShoppingCartComponents/CartItem';
 import CartHeading from '../components/ShoppingCartComponents/CartHeading';
 import CartTotal from '../components/ShoppingCartComponents/CartTotal';
-
-
 import { useAppSelector } from "../redux/redux-hooks";
 import { useDispatch } from 'react-redux';
 import { removeItemFromCart, setBill } from '../redux/cart';
-import { Button, Card, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, Card, Form } from 'react-bootstrap';
 import ModalC from '../components/Modal';
 
 
@@ -26,15 +23,15 @@ const ShoppingCartPage = () => {
     const handleShow = () => setShow(true);
 
     useEffect(() => {
-        cart.items.map(item => {
+        for (let item of cart.items) {
             if (item.quantity === 0) {
                 dispatch(removeItemFromCart(item.productId))
             }
-        })
+        }
 
         dispatch(setBill())
 
-    }, [cart])
+    }, [cart, dispatch])
 
 
 
