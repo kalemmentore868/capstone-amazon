@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { addItemToCart, postAddToCart, setBill } from "../redux/cart";
 import { useAppDispatch, useAppSelector } from "../redux/redux-hooks";
-import { successfulToast } from "./toasties";
+import { errorToast, successfulToast } from "./toasties";
 import { ProductType } from "./types";
 
 export const useAddToCart = (product: ProductType | undefined) => {
@@ -39,36 +39,37 @@ export const useAddToCart = (product: ProductType | undefined) => {
   return { addToCart };
 };
 
-export const useFetchSingleProduct = (
-  method: string,
-  url: string,
-  body: Object
-) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiData, setApiData] = useState<ProductType>();
-  const [apiError, setApiError] = useState("");
+// export const useDeleteProduct = () => {
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [isError, setIsError] = useState(false);
+//   const [isSuccess, setIsSuccess] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios({
-          method: method,
-          url: url,
-          data: body,
-        });
-        const data: ProductType = await response?.data.data;
+//   const deleteProduct = async (productId: number) => {
+//     setIsLoading(true);
+//     try {
+//       const response = await fetch(
+//         `${process.env.REACT_APP_API_ENDPOINT}/products/${productId}`,
+//         {
+//           method: "DELETE",
+//         }
+//       );
+//       if (response.ok) {
+//         setIsSuccess(true);
+//         successfulToast(`Product with id: ${productId} deleted`);
+//       } else {
+//         setIsError(true);
+//         errorToast(`Something went wrong contact admin`);
+//       }
+//     } catch (error) {
+//       setIsError(true);
+//     }
+//     setIsLoading(false);
+//   };
 
-        setApiData(data);
-        setIsLoading(false);
-      } catch (error) {
-        // @ts-ignore
-        setApiError(error);
-        setIsLoading(false);
-      }
-    };
+//   useEffect(() => {
+//     setIsError(false);
+//     setIsSuccess(false);
+//   }, []);
 
-    fetchData();
-  }, [url, method, body]);
-
-  return { isLoading, apiData, apiError };
-};
+//   return { isLoading, isError, isSuccess, deleteProduct };
+// };

@@ -1,7 +1,8 @@
-import { apiClient } from "./api";
-import { useQuery, UseQueryResult } from "react-query";
+import { apiClient, queryClient } from "./api";
+import { useMutation, useQuery, UseQueryResult } from "react-query";
 import { CategoryType, ProductType } from "./types";
 import { useSearchParams } from "react-router-dom";
+import { errorToast, successfulToast } from "./toasties";
 
 export function useProducts(): UseQueryResult<ProductType[]> {
   const [search] = useSearchParams();
@@ -60,6 +61,27 @@ export function useSingleProduct(id: number): UseQueryResult<ProductType> {
     }
   );
 }
+
+export const useDeleteProduct = () => {
+  const deleteProductMutation = useMutation(
+    (productId: number) => apiClient.delete(`/products/${productId}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("products");
+        successfulToast(`Product was deleted`);
+      },
+      onError: () => {
+        errorToast("Something went wrong");
+      },
+    }
+  );
+
+  const handleDelete = async (productId: number) => {
+    await deleteProductMutation.mutateAsync(productId);
+  };
+
+  return { handleDelete, isLoading: deleteProductMutation.isLoading };
+};
 
 export function useCategories(): UseQueryResult<CategoryType[]> {
   return useQuery(["categories"], () =>
