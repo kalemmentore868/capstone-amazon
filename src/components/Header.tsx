@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,7 +11,10 @@ import { resetCart } from '../redux/cart';
 import HeaderSearch from './HeaderSearch';
 
 
+
 const Header = () => {
+
+    const [showMobileSearch, setShowMobileSearch] = useState(false)
 
     const location = useLocation()
     const cart = useAppSelector((state) => state.cart.cart)
@@ -44,54 +47,63 @@ const Header = () => {
     return (
         <Navbar expand="lg" sticky="top" className="grey-bg rubiks-font p-3" >
             <Container>
-                <Navbar.Brand href="/" className="green">
-                    What Tuh Eat
-                </Navbar.Brand>
-
-                <HeaderSearch />
-                <Navbar.Toggle aria-controls="navbarScroll" />
-
-                <Navbar.Collapse id="navberScroll" className="justify-content-evenly">
+                {!showMobileSearch && (
+                    <Navbar.Brand href="/" className="green">
+                        What Tuh Eat
+                    </Navbar.Brand>
+                )}
 
 
-                    <Nav>
+                <HeaderSearch displayMobileSearch={() => setShowMobileSearch(true)} showMobileSearch={showMobileSearch} hideMobileSearch={() => setShowMobileSearch(false)} />
 
-                        <Link to="/">
-                            <span className={location.pathname === "/" ? "nav-link green" : "nav-link"} >Home</span>
-                        </Link>
+                {!showMobileSearch && (
+                    <>
+                        <Navbar.Toggle aria-controls="navbarScroll" />
 
-                        <Link to="/products" >
-                            <span className={location.pathname === "/products" ? "nav-link green" : "nav-link"}>Shop</span>
-                        </Link>
-
-                        <Link to="/best-sellers">
-                            <span className={location.pathname === "/best-sellers" ? "nav-link green" : "nav-link"}>Best Sellers</span>
-                        </Link>
-
-                        <Link to="/categories">
-                            <span className={location.pathname === "/categories" ? "nav-link green" : "nav-link"}>Categories</span>
-                        </Link>
-
-                        {user && user.token ? (
-                            <Nav.Link onClick={logoutUser} > Log out</Nav.Link>
-                        ) : (
-                            <>
-                                <Link to="/signup" ><span className={location.pathname === "/signup" ? "nav-link green" : "nav-link"}>Sign Up</span></Link>
-                                <Link to="/login"><span className={location.pathname === "/login" ? "nav-link green" : "nav-link"}>Login</span></Link>
-                            </>
-                        )}
+                        <Navbar.Collapse id="navberScroll" className="justify-content-evenly">
 
 
+                            <Nav>
+
+                                <Link to="/">
+                                    <span className={location.pathname === "/" ? "nav-link green" : "nav-link"} >Home</span>
+                                </Link>
+
+                                <Link to="/products" >
+                                    <span className={location.pathname === "/products" ? "nav-link green" : "nav-link"}>Shop</span>
+                                </Link>
+
+                                <Link to="/best-sellers">
+                                    <span className={location.pathname === "/best-sellers" ? "nav-link green" : "nav-link"}>Best Sellers</span>
+                                </Link>
+
+                                <Link to="/categories">
+                                    <span className={location.pathname === "/categories" ? "nav-link green" : "nav-link"}>Categories</span>
+                                </Link>
+
+                                {user && user.token ? (
+                                    <Nav.Link onClick={logoutUser} > Log out</Nav.Link>
+                                ) : (
+                                    <>
+                                        <Link to="/signup" ><span className={location.pathname === "/signup" ? "nav-link green" : "nav-link"}>Sign Up</span></Link>
+                                        <Link to="/login"><span className={location.pathname === "/login" ? "nav-link green" : "nav-link"}>Login</span></Link>
+                                    </>
+                                )}
 
 
-                        <Link to="/checkout">
-                            <span className={location.pathname === "/checkout" ? "nav-link green" : "nav-link"}><AiOutlineShopping size="30px" />{cart.items.length}</span>
-                        </Link>
-
-                    </Nav>
 
 
-                </Navbar.Collapse>
+                                <Link to="/checkout">
+                                    <span className={location.pathname === "/checkout" ? "nav-link green" : "nav-link"}><AiOutlineShopping size="30px" /> <span className="item-count">{cart.items.length}</span> </span>
+                                </Link>
+
+                            </Nav>
+
+
+                        </Navbar.Collapse>
+                    </>
+                )}
+
 
 
             </Container >

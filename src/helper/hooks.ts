@@ -13,7 +13,17 @@ export function useProducts(): UseQueryResult<ProductType[]> {
         .get("products", {
           params: search,
         })
-        .then((res) => res.data.data),
+        .then((res: any) => res.data.data),
+    {
+      staleTime: 120000,
+    }
+  );
+}
+
+export function useHeaderProducts(): UseQueryResult<ProductType[]> {
+  return useQuery(
+    ["headerProducts"],
+    () => apiClient.get("products").then((res: any) => res.data.data),
     {
       staleTime: 120000,
     }
@@ -29,7 +39,7 @@ export function useNewProducts(): UseQueryResult<ProductType[]> {
         .get("products?sort=newest+arrivals", {
           params: search,
         })
-        .then((res) => res.data.data),
+        .then((res: any) => res.data.data),
     {
       staleTime: 120000,
     }
@@ -45,7 +55,7 @@ export function useBestSellers(): UseQueryResult<ProductType[]> {
         .get("products?sort=popularity", {
           params: search,
         })
-        .then((res) => res.data.data),
+        .then((res: any) => res.data.data),
     {
       staleTime: 120000,
     }
@@ -53,12 +63,8 @@ export function useBestSellers(): UseQueryResult<ProductType[]> {
 }
 
 export function useSingleProduct(id: number): UseQueryResult<ProductType> {
-  return useQuery(
-    ["product"],
-    () => apiClient.get(`products/${id}`).then((res) => res.data.data),
-    {
-      staleTime: 120000,
-    }
+  return useQuery(["product"], () =>
+    apiClient.get(`products/${id}`).then((res: any) => res.data.data)
   );
 }
 
@@ -85,12 +91,12 @@ export const useDeleteProduct = () => {
 
 export function useCategories(): UseQueryResult<CategoryType[]> {
   return useQuery(["categories"], () =>
-    apiClient.get("categories").then((res) => res.data.data)
+    apiClient.get("categories").then((res: any) => res.data.data)
   );
 }
 
 export function useSingleCategory(id: number): UseQueryResult<CategoryType> {
   return useQuery(["category"], () =>
-    apiClient.get(`categories/${id}`).then((res) => res.data.data)
+    apiClient.get(`categories/${id}`).then((res: any) => res.data.data)
   );
 }
