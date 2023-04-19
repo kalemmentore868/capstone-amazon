@@ -1,6 +1,6 @@
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useSingleProduct } from "../../helper/hooks";
+import { useEditProduct, useSingleProduct } from "../../helper/hooks";
 import ProductForm from "./ProductForm";
 
 const EditProduct = () => {
@@ -10,6 +10,8 @@ const EditProduct = () => {
 
     const getProduct = useSingleProduct(Number(id))
     const product = getProduct.data ?? undefined
+
+    const { handleEdit } = useEditProduct(Number(id));
 
     return (
         <Row>
@@ -26,7 +28,7 @@ const EditProduct = () => {
                         seller_id: product?.seller_id || 1,
                         price: product?.price || 0,
                     }}
-                    onSubmit={(data) => console.log(data)}
+                    onSubmit={handleEdit}
                 />
             </Col>
         </Row>

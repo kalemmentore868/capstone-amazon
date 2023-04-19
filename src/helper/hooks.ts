@@ -1,7 +1,7 @@
 import { apiClient, queryClient } from "./api";
 import { useMutation, useQuery, UseQueryResult } from "react-query";
 import { CategoryType, ProductType } from "./types";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { errorToast, successfulToast } from "./toasties";
 
 export function useProducts(): UseQueryResult<ProductType[]> {
@@ -87,6 +87,52 @@ export const useDeleteProduct = () => {
   };
 
   return { handleDelete, isLoading: deleteProductMutation.isLoading };
+};
+
+export const useCreateProduct = () => {
+  const navigate = useNavigate();
+  const createProductMutation = useMutation(
+    (product: ProductType) => apiClient.post(`/products`, product),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("products");
+        successfulToast(`Product was created`);
+        navigate("/admin");
+      },
+      onError: () => {
+        errorToast("Something went wrong");
+      },
+    }
+  );
+
+  const handleCreate = async (product: ProductType) => {
+    await createProductMutation.mutateAsync(product);
+  };
+
+  return { handleCreate, isLoading: createProductMutation.isLoading };
+};
+
+export const useEditProduct = (id: number) => {
+  const navigate = useNavigate();
+  const editProductMutation = useMutation(
+    (product: ProductType) => apiClient.put(`/products/${id}`, product),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("products");
+        successfulToast(`Product was edited`);
+        navigate("/admin");
+      },
+      onError: () => {
+        errorToast("Something went wrong");
+      },
+    }
+  );
+
+  const handleEdit = async (product: ProductType) => {
+    await editProductMutation.mutateAsync(product);
+  };
+
+  return { handleEdit, isLoading: editProductMutation.isLoading };
 };
 
 export function useCategories(): UseQueryResult<CategoryType[]> {

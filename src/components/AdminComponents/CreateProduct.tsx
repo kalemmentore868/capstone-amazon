@@ -1,12 +1,13 @@
 import { Col, Row } from "react-bootstrap";
+import { useCreateProduct } from "../../helper/hooks";
 import ProductForm from "./ProductForm";
 
 const CreateProduct = () => {
-    // Implementation of the ProductForm component from the previous answer goes here
+    const { handleCreate } = useCreateProduct();
     return (
         <Row>
             <Col xs={12}>
-                <ProductForm onSubmit={(data: any) => console.log(data)} />
+                <ProductForm onSubmit={handleCreate} />
             </Col>
         </Row>
     );

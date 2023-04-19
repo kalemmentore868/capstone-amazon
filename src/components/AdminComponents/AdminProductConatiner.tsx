@@ -37,8 +37,8 @@ const AdminProductContainer = () => {
             <Row>
                 {slicedProducts.map((product) => (
 
-                    <Col xs={12} md={3} className="my-3">
-                        <AdminProductCard key={product.id} product={product} />
+                    <Col xs={12} md={3} key={product.id} className="my-3">
+                        <AdminProductCard product={product} />
                     </Col>
 
 

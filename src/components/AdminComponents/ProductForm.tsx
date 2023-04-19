@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useCategories } from "../../helper/hooks";
 import { ProductType } from "../../helper/types";
 
 interface ProductFormProps {
@@ -8,12 +9,13 @@ interface ProductFormProps {
 }
 
 const ProductForm = ({ onSubmit, product }: ProductFormProps) => {
+
     const [formData, setFormData] = useState<ProductType>(
         product || {
             id: 0,
             title: "",
             description: "",
-            category_id: 0,
+            category_id: 58,
             rating: 0,
             is_best_seller: false,
             img_url: "",
@@ -21,6 +23,11 @@ const ProductForm = ({ onSubmit, product }: ProductFormProps) => {
             price: 0,
         }
     );
+
+    const getCategories = useCategories()
+    const categories = getCategories.data ?? [];
+
+
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -34,67 +41,72 @@ const ProductForm = ({ onSubmit, product }: ProductFormProps) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formTitle">
+            <Form.Group >
                 <Form.Label>Product Name</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Enter product name"
+                    className="mb-3"
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
                 />
             </Form.Group>
 
-            <Form.Group controlId="formPrice">
+            <Form.Group >
                 <Form.Label>Product Price</Form.Label>
                 <Form.Control
                     type="number"
                     placeholder="Enter product price"
                     name="price"
+                    className="mb-3"
                     value={formData.price}
                     onChange={handleInputChange}
                 />
             </Form.Group>
 
-            <Form.Group controlId="formDescription">
+            <Form.Group >
                 <Form.Label>Product Description</Form.Label>
                 <Form.Control
                     as="textarea"
                     rows={3}
                     placeholder="Enter product description"
                     name="description"
+                    className="mb-3"
                     value={formData.description}
                     onChange={handleInputChange}
                 />
             </Form.Group>
 
-            <Form.Group controlId="formCategory">
+            <Form.Group>
                 <Form.Label>Product Category</Form.Label>
                 <Form.Control
                     as="select"
                     name="category_id"
+                    className="mb-3"
                     value={formData.category_id}
                     onChange={handleInputChange}
                 >
-                    <option value={1}>Category 1</option>
-                    <option value={2}>Category 2</option>
-                    <option value={3}>Category 3</option>
+                    {categories.map(category => <option key={category.id} value={category.id}>{category.title}</option>)}
+
+
                 </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="formBestseller">
+            <Form.Group >
                 <Form.Check
                     type="checkbox"
                     label="Set as Bestseller"
                     name="is_best_seller"
                     checked={formData.is_best_seller}
+                    className="mb-3"
                     onChange={handleInputChange}
                 />
             </Form.Group>
 
-            <Form.Group controlId="formImage">
-                <Form.Label>Product Image</Form.Label>
-                <Form.Control type="file" id="formImageUpload" name="img_url" onChange={handleInputChange} />
+            <Form.Group >
+                <Form.Label>Product Image Url</Form.Label>
+                <Form.Control type="text" className="mb-3" id="formImageUpload" value={formData.img_url} name="img_url" onChange={handleInputChange} />
             </Form.Group>
 
             <Button variant="primary" type="submit">

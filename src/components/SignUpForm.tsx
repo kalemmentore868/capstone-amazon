@@ -28,6 +28,10 @@ const SignUpForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        if (confirmPassword !== password) {
+            return errorToast("Passwords do not match")
+        }
+
         const formValues = {
             first_name: firstName,
             last_name: lastName,

@@ -6,7 +6,7 @@ import AdminProductContainer from '../components/AdminComponents/AdminProductCon
 const AdminPage = () => {
     const [showProducts, setShowProducts] = useState(false)
     return (
-        <Container>
+        <Container style={{ minHeight: "100vh" }} className="py-4">
             <Row className="mt-5 mb-3">
                 <Col xs={12} className="text-center">
                     <h1>Admin Dashboard</h1>

@@ -39,9 +39,9 @@ const NewProducts = () => {
                     <h2 className="curly big-font">New Products</h2>
                 </Col>
                 <Col xs={12} md={6} className="text-right rubiks-font hover text-muted mt-4">
-                    <span onClick={() => categoryClicked("All", "")} className={activeCat === "All" ? "mb-4 me-4 active-cat" : "mb-4 me-4"} >All</span>
+                    <span onClick={() => categoryClicked("All", "")} className={activeCat === "All" ? "my-4 me-4 active-cat" : "my-4 me-4"} >All</span>
                     {categories.slice(0, 5).map((category) => {
-                        return <span onClick={() => categoryClicked(category.title, `${category.id}`)} key={category.id} className={activeCat === category.title ? "mb-4 me-4 active-cat" : "mb-4 me-4"}>{category.title}</span>
+                        return <span onClick={() => categoryClicked(category.title, `${category.id}`)} key={category.id} className={activeCat === category.title ? "my-4 me-4 active-cat" : "my-4 me-4"}>{category.title}</span>
                     })}
                 </Col>
             </Row>
