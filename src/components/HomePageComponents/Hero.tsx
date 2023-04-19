@@ -17,7 +17,7 @@ const HeroCarousel = () => {
     const style3 = { background: `url(${food3}) no-repeat center center fixed`, backgroundSize: "cover" }
     return (
         <Carousel fade controls={false}>
-            <Carousel.Item>
+            <Carousel.Item style={{ zIndex: "0" }}>
                 <div className="slide1" style={style1} />
                 <Container className="overlay-text">
                     <h1>WTE Food Service</h1>
@@ -27,14 +27,14 @@ const HeroCarousel = () => {
 
                 </Container>
             </Carousel.Item>
-            <Carousel.Item>
+            <Carousel.Item style={{ zIndex: "0" }}>
                 <div className="slide2" style={style2} />
                 <Container className="overlay-text">
                     <h1>WTE Food Service</h1>
                     <Button variant="success">Order Now</Button>
                 </Container>
             </Carousel.Item>
-            <Carousel.Item>
+            <Carousel.Item style={{ zIndex: "0" }}>
                 <div className="slide3" style={style3} />
                 <Container className="overlay-text">
                     <h1>WTE Food Service</h1>

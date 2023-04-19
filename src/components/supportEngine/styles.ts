@@ -2,6 +2,7 @@ export const styles = {
   chatWithMeButton: {
     cursor: "pointer",
     boxShadow: "0px 0px 16px 6px rgba(0, 0, 0, 0.33)",
+    zIndex: "100",
     // Border
     borderRadius: "50%",
     // Background

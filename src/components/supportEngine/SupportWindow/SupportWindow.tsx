@@ -16,7 +16,10 @@ const SupportWindow: React.FC<props> = ({ visible }) => {
         // @ts-ignore
         <div className='transition-5' style={{
             ...styles.supportWindow,
-            ...{ opacity: visible ? "1" : "0" }
+            ...{
+                opacity: visible ? "1" : "0",
+                display: visible ? "block" : "none"
+            }
         }}
         >
             <EmailForm
