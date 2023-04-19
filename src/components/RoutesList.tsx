@@ -10,6 +10,7 @@ import ProductListingPage from "../pages/ProductListingPage"
 import ShoppingCartPage from "../pages/ShoppingCartPage"
 import SignUpPage from "../pages/SignUpPage"
 import AdminPage from '../pages/AdminPage'
+import SupportAdmin from './AdminComponents/SupportAdmin/SupportAdmin'
 
 const RoutesList = () => {
     return (
@@ -23,6 +24,7 @@ const RoutesList = () => {
             <Route path="/products/:id" element={<ProductDescriptionPage />} />
             <Route path="/checkout" element={<ShoppingCartPage />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin-support" element={<SupportAdmin />} />
             <Route path="*" element={<NotFoundPage />} />  {/* None of the above*/}
         </Routes>
     )

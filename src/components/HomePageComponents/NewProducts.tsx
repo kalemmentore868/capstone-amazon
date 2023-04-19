@@ -20,6 +20,7 @@ const NewProducts = () => {
     const categoryClicked = (categoryTitle: string, category_id: string) => {
         setActiveCat(categoryTitle)
         search.set("category_id", category_id)
+        search.set("sort", "newest arrivals")
         setSearch(search, {
             replace: true
         })

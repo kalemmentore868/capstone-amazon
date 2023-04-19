@@ -39,7 +39,7 @@ export function useNewProducts(): UseQueryResult<ProductType[]> {
 export function useBestSellers(): UseQueryResult<ProductType[]> {
   const [search] = useSearchParams();
   return useQuery(
-    ["newProducts", search.toString()],
+    ["bestSellers"],
     () =>
       apiClient
         .get("products?sort=popularity", {

@@ -10,6 +10,7 @@ import { setUser } from './redux/user';
 import { useAppDispatch } from './redux/redux-hooks';
 import { QueryClientProvider } from "react-query"
 import { queryClient } from './helper/api';
+import LiveChat from './components/supportEngine/LiveChat';
 
 function App() {
   const dispatch = useAppDispatch()
@@ -41,6 +42,7 @@ function App() {
           <Header />
           <RoutesList />
           <ToastContainer />
+          <LiveChat />
           <Footer />
 
         </BrowserRouter>
