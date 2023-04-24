@@ -1,6 +1,12 @@
 import { apiClient, queryClient } from "./api";
 import { useMutation, useQuery, UseQueryResult } from "react-query";
-import { CategoryType, ProductType } from "./types";
+import {
+  CartItemType,
+  CategoryType,
+  OrderObj,
+  ProductType,
+  UserType,
+} from "./types";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { errorToast, successfulToast } from "./toasties";
 
@@ -145,4 +151,13 @@ export function useSingleCategory(id: number): UseQueryResult<CategoryType> {
   return useQuery(["category"], () =>
     apiClient.get(`categories/${id}`).then((res: any) => res.data.data)
   );
+}
+
+export function useOrders(user: UserType): UseQueryResult<OrderObj[]> {
+  return useQuery(["orders"], () => {
+    const headers = { Authorization: `Bearer ${user.token}` };
+    return apiClient
+      .get(`orders/${user.id}`, { headers })
+      .then((res: any) => res.data.data);
+  });
 }

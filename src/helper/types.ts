@@ -36,8 +36,8 @@ export interface UserType {
   first_name: string;
   last_name: string;
   email: string;
-  is_admin?: boolean;
-  phone_number?: string;
+  is_admin: boolean;
+  phone_number: string;
   token?: string;
 }
 
@@ -52,4 +52,11 @@ export interface CategoryType {
   title: string;
   description: string;
   thumbnail: string;
+}
+
+export interface OrderObj {
+  items: CartItemType[];
+  total: number;
+  created_at: string;
+  id: number;
 }

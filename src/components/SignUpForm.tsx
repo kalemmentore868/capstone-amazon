@@ -11,13 +11,14 @@ import { useNavigate } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
 import { signUpUser } from '../redux/user';
 import { errorToast, successfulToast } from '../helper/toasties';
-
+import { AiOutlinePhone } from 'react-icons/ai';
 
 
 const SignUpForm = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -37,6 +38,7 @@ const SignUpForm = () => {
             last_name: lastName,
             email,
             password,
+            phone_number: phone
 
         }
 
@@ -93,6 +95,15 @@ const SignUpForm = () => {
                                                 <Form.Label>Email address</Form.Label>
                                                 <Form.Control type="email" placeholder="Enter email" value={email}
                                                     onChange={(event) => setEmail(event.target.value)} required />
+                                            </Form.Group>
+                                        </div>
+
+                                        <div className="d-flex flex-row align-items-center mb-4">
+                                            <AiOutlinePhone size="20px" className="me-3 " />
+                                            <Form.Group className="form-outline flex-fill mb-0" >
+                                                <Form.Label>Phone</Form.Label>
+                                                <Form.Control type="text" placeholder="Enter phone number" value={phone}
+                                                    onChange={(event) => setPhone(event.target.value)} required />
                                             </Form.Group>
                                         </div>
 

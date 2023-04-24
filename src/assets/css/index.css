@@ -78,3 +78,7 @@ a {
     z-index: 100;
   }
 }
+
+.order-rec {
+  border: 1px solid #60be74;
+}

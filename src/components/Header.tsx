@@ -9,6 +9,7 @@ import { logout } from '../redux/user';
 import { successfulToast } from '../helper/toasties';
 import { resetCart } from '../redux/cart';
 import HeaderSearch from './HeaderSearch';
+import { RiAccountCircleLine } from 'react-icons/ri';
 
 
 
@@ -58,6 +59,10 @@ const Header = () => {
 
                 {!showMobileSearch && (
                     <>
+                        <Link to={user ? `/user-dashboard/${user?.id}` : "/signup"}>
+                            <RiAccountCircleLine size={35} className="ms-4 me-2 hover green" />
+                        </Link>
+
                         <Navbar.Toggle aria-controls="navbarScroll" />
 
                         <Navbar.Collapse id="navberScroll" className="justify-content-evenly">

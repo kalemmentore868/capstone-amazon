@@ -13,6 +13,7 @@ import AdminPage from '../pages/AdminPage'
 import SupportAdmin from './AdminComponents/SupportAdmin/SupportAdmin'
 import CreateProductPage from '../pages/CreateProductPage'
 import EditProductPage from '../pages/EditProductPage'
+import UserDashboardPage from '../pages/UserDashboardPage'
 
 const RoutesList = () => {
     return (
@@ -28,7 +29,8 @@ const RoutesList = () => {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin-support" element={<SupportAdmin />} />
             <Route path="/createproduct" element={<CreateProductPage />} />
-            <Route path="//edit-product/:id" element={<EditProductPage />} />
+            <Route path="/edit-product/:id" element={<EditProductPage />} />
+            <Route path="/user-dashboard/:id" element={<UserDashboardPage />} />
             <Route path="*" element={<NotFoundPage />} />  {/* None of the above*/}
         </Routes>
     )

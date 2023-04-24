@@ -38,10 +38,29 @@ export const loginUser = createAsyncThunk(
       userCred
     );
     let user = response.data.data;
+
     if (user) {
       await saveToLocalStorage(user, dispatch);
     }
     return response.data.data;
+  }
+);
+
+export const editUser = createAsyncThunk(
+  "user/editUser",
+  async (userData: UserType, { dispatch }) => {
+    const headers = { Authorization: `Bearer ${userData.token}` };
+    const response = await axios.put(
+      `${process.env.REACT_APP_API_ENDPOINT}/users/${userData.id}`,
+      userData,
+      { headers }
+    );
+    let user = response.data.data;
+    if (user) {
+      user.token = userData.token;
+      await saveToLocalStorage(user, dispatch);
+    }
+    return user;
   }
 );
 
@@ -82,6 +101,18 @@ export const userSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || null;
         state.user = null;
+      })
+      .addCase(editUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(editUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
       });
   },
 });

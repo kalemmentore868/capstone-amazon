@@ -36,11 +36,12 @@ const ShoppingCartPage = () => {
 
 
     return (
-        <section >
+        <section style={{ minHeight: "100vh" }} >
             <Container className=' py-5'>
-                <Row className="d-flex justify-content-center align-items-cente">
+                <Row className="d-flex justify-content-center align-items-center">
                     <CartHeading />
-                    {cart.items.map((item) => {
+                    {cart.items.slice().reverse().map((item) => {
+
                         return (
                             <CartItem key={item.productId} item={item} />
                         )

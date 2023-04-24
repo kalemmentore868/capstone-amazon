@@ -7,6 +7,8 @@ import { BiMinus, BiPlus, BiTrash } from "react-icons/bi"
 import { addItemToCart, postDeleteCartItem, postUpdateCart, reduceItemQuantity, removeItemFromCart, setCart } from '../../redux/cart';
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks';
 import { CartItemType } from '../../helper/types';
+import { useWindowSize } from 'react-use';
+
 
 interface props {
     item: CartItemType
@@ -15,6 +17,7 @@ interface props {
 const CartItem: React.FC<props> = ({ item }) => {
     const dispatch = useAppDispatch()
     const user = useAppSelector((state) => state.user.user)
+    const { width } = useWindowSize()
 
     const updateCartItem = (action: string) => {
 
@@ -71,25 +74,38 @@ const CartItem: React.FC<props> = ({ item }) => {
                             className="img-fluid rounded-3" alt="Cotton T-shirt" />
                     </Col>
                     <Col md={3} lg={3} xl={3} >
-                        <p className="lead fw-normal mb-2">{item.name}</p>
-                        <p><span className="text-muted">Size: </span>M <span className="text-muted">Color: </span>Grey</p>
+                        <p className={width > 600 ? "lead fw-normal mb-2" : "lead fw-normal my-3 text-center"}>{item.name}</p>
+                        {/* <p><span className="text-muted">Size: </span>M <span className="text-muted">Color: </span>Grey</p> */}
                     </Col>
                     <Col md={3} lg={3} xl={2} className="d-flex" >
                         <Button variant="link" className="px-2">
-                            <BiMinus onClick={() => updateCartItem("-")} />
+                            <BiMinus size={30} onClick={() => updateCartItem("-")} />
                         </Button>
                         <input id="form1" min="0" name="quantity" value={item.quantity} readOnly type="number"
                             className="form-control form-control-sm" />
                         <Button variant="link" className="px-2">
-                            <BiPlus onClick={() => updateCartItem("+")} />
+                            <BiPlus size={30} onClick={() => updateCartItem("+")} />
                         </Button>
                     </Col>
-                    <Col md={3} lg={2} xl={2} className="offset-lg-1" >
-                        <h5 className="mb-0">${item.price}</h5>
-                    </Col>
-                    <Col md={1} lg={1} xl={1} className="text-end" >
-                        <BiTrash className="hover" color='red' size={30} onClick={deleteCartItem} />
-                    </Col>
+                    {width > 600 ? (
+                        <>
+                            <Col md={3} lg={2} xl={2} className="offset-lg-1" >
+                                <h5 className="mb-0">${item.price}</h5>
+                            </Col>
+                            <Col md={1} lg={1} xl={1} className="text-end" >
+                                <BiTrash className="hover" color='red' size={30} onClick={deleteCartItem} />
+                            </Col>
+                        </>
+                    ) : (
+                        <div className="d-flex px-4 mt-2 justify-content-between align-items-center">
+
+                            <h5 className="mt-3">${item.price}</h5>
+
+                            <BiTrash className="hover" color='red' size={30} onClick={deleteCartItem} />
+
+                        </div>
+                    )}
+
                 </Row>
 
             </Card.Body>

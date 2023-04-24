@@ -39,37 +39,22 @@ export const useAddToCart = (product: ProductType | undefined) => {
   return { addToCart };
 };
 
-// export const useDeleteProduct = () => {
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [isError, setIsError] = useState(false);
-//   const [isSuccess, setIsSuccess] = useState(false);
+export const formatTime = (isoString: string) => {
+  const date = new Date(isoString);
 
-//   const deleteProduct = async (productId: number) => {
-//     setIsLoading(true);
-//     try {
-//       const response = await fetch(
-//         `${process.env.REACT_APP_API_ENDPOINT}/products/${productId}`,
-//         {
-//           method: "DELETE",
-//         }
-//       );
-//       if (response.ok) {
-//         setIsSuccess(true);
-//         successfulToast(`Product with id: ${productId} deleted`);
-//       } else {
-//         setIsError(true);
-//         errorToast(`Something went wrong contact admin`);
-//       }
-//     } catch (error) {
-//       setIsError(true);
-//     }
-//     setIsLoading(false);
-//   };
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
-//   useEffect(() => {
-//     setIsError(false);
-//     setIsSuccess(false);
-//   }, []);
+  const hours = date.getHours() % 12 || 12;
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const ampm = date.getHours() >= 12 ? "pm" : "am";
 
-//   return { isLoading, isError, isSuccess, deleteProduct };
-// };
+  const formattedDate = `${year}-${month}-${day}`;
+  const formattedTime = `${hours}:${minutes}${ampm}`;
+
+  return {
+    formattedDate,
+    formattedTime,
+  };
+};

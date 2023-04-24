@@ -52,7 +52,7 @@ const ModalC: React.FC<props> = (props: any) => {
                 <Modal.Title>Pay With Cash On Delivery</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Total:  ${total}
+                Total:  ${total.toFixed(2)}
             </Modal.Body>
             <Modal.Footer className="d-flex justify-content-between">
 
