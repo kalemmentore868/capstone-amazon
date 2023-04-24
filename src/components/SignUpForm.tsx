@@ -13,8 +13,11 @@ import { signUpUser } from '../redux/user';
 import { errorToast, successfulToast } from '../helper/toasties';
 import { AiOutlinePhone } from 'react-icons/ai';
 
+interface props {
+    onSubmit: (data: any) => void;
+}
 
-const SignUpForm = () => {
+const SignUpForm: React.FC<props> = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');

@@ -26,8 +26,13 @@ const AdminPage = () => {
 
             {showProducts && <AdminProductContainer />}
 
-            <div className="mt-5 text-center">
+            <div className="my-5 text-center">
                 <Link to="/admin-support" className="mt-5">Live Chat Support</Link>
+            </div>
+
+            <div className="text-center">
+                <Button variant="success" >Create Admin</Button>
+
             </div>
 
 

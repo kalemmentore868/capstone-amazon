@@ -30,6 +30,22 @@ export const signUpUser = createAsyncThunk(
   }
 );
 
+export const signUpAdmin = createAsyncThunk(
+  "user/signUpAdmin",
+  async (userData: UserType, { dispatch }) => {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_ENDPOINT}/auth/register-admin`,
+      userData
+    );
+
+    let user = response.data.data;
+    if (user) {
+      await saveToLocalStorage(user, dispatch);
+    }
+    return response.data.data;
+  }
+);
+
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userCred: LoginType, { dispatch }) => {
@@ -111,6 +127,18 @@ export const userSlice = createSlice({
         state.error = null;
       })
       .addCase(editUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      })
+      .addCase(signUpAdmin.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(signUpAdmin.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(signUpAdmin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       });
