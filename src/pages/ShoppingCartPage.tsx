@@ -1,77 +1,105 @@
-import { useEffect, useState } from 'react'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import CartItem from '../components/ShoppingCartComponents/CartItem';
-import CartHeading from '../components/ShoppingCartComponents/CartHeading';
-import CartTotal from '../components/ShoppingCartComponents/CartTotal';
+import { useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import CartItem from "../components/ShoppingCartComponents/CartItem";
+import CartHeading from "../components/ShoppingCartComponents/CartHeading";
+import CartTotal from "../components/ShoppingCartComponents/CartTotal";
 import { useAppSelector } from "../redux/redux-hooks";
-import { useDispatch } from 'react-redux';
-import { removeItemFromCart, setBill } from '../redux/cart';
-import { Button, Card, Form } from 'react-bootstrap';
-import ModalC from '../components/Modal';
-
+import { useDispatch } from "react-redux";
+import { removeItemFromCart, setBill } from "../redux/cart";
+import { Button, Card, Form } from "react-bootstrap";
+import ModalC from "../components/Modal";
+import AddressForm from "../components/AddressForm";
+import AddressSelect from "../components/SelectAddress";
+import { AddressFormType, AddressType } from "../helper/types";
 
 const ShoppingCartPage = () => {
-    const [show, setShow] = useState(false);
-    const [notes, setNotes] = useState("")
+  const [show, setShow] = useState(false);
+  const [notes, setNotes] = useState("");
+  const [address, setAddress] = useState<AddressFormType | null>(null);
+  const [paymentReady, setPaymentReady] = useState(false);
+  const [showAddressForm, setShowAddressForm] = useState(false);
 
+  const cart = useAppSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
 
-    const cart = useAppSelector((state) => state.cart.cart)
-    const dispatch = useDispatch()
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  useEffect(() => {
+    for (let item of cart.items) {
+      if (item.quantity === 0) {
+        dispatch(removeItemFromCart(item.productId));
+      }
+    }
 
-    useEffect(() => {
-        for (let item of cart.items) {
-            if (item.quantity === 0) {
-                dispatch(removeItemFromCart(item.productId))
-            }
-        }
+    dispatch(setBill());
+  }, [cart, dispatch]);
 
-        dispatch(setBill())
+  const onSelectAddress = (address: AddressType) => {
+    setShowAddressForm(false);
 
-    }, [cart, dispatch])
+    setAddress(address);
+    setPaymentReady(true);
+  };
 
+  const onAddAddress = () => {
+    setShowAddressForm(false);
+  };
 
+  return (
+    <section style={{ minHeight: "100vh" }}>
+      <Container className=" py-5">
+        <Row className="d-flex justify-content-center align-items-center">
+          <CartHeading />
+          {cart.items.map((item) => {
+            return <CartItem key={item.productId} item={item} />;
+          })}
 
-    return (
-        <section style={{ minHeight: "100vh" }} >
-            <Container className=' py-5'>
-                <Row className="d-flex justify-content-center align-items-center">
-                    <CartHeading />
-                    {cart.items.slice().reverse().map((item) => {
+          <CartTotal total={cart.bill} />
 
-                        return (
-                            <CartItem key={item.productId} item={item} />
-                        )
-                    })}
+          <Form.Label>Notes:</Form.Label>
+          <Form.Control
+            as="textarea"
+            placeholder="Leave a note here for any other items"
+            className="mb-4"
+            style={{ height: "100px" }}
+            onChange={(e) => setNotes(e.target.value)}
+          />
 
-                    <CartTotal total={cart.bill} />
+          <AddressSelect
+            onSelectAddress={onSelectAddress}
+            onAddAddress={() => setShowAddressForm(true)}
+          />
 
-                    <Form.Label  >Notes:</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        placeholder="Leave a note here for any other items"
-                        className='mb-4'
-                        style={{ height: '100px' }}
-                        onChange={(e) => setNotes(e.target.value)}
-                    />
+          {showAddressForm && <AddressForm onAddAddress={onAddAddress} />}
 
+          <Card className="mb-4">
+            <Card.Body className="d-grid p-4">
+              <Button
+                size="lg"
+                variant="warning"
+                onClick={handleShow}
+                className="btn-block text-light"
+                disabled={!paymentReady}
+              >
+                Proceed to Pay
+              </Button>
+            </Card.Body>
+          </Card>
+        </Row>
 
-                    <Card className="mb-4">
-                        <Card.Body className="d-grid p-4">
-                            <Button size="lg" variant="warning" onClick={handleShow} className="btn-block text-light" >Proceed to Pay</Button>
-                        </Card.Body>
-                    </Card>
-                </Row>
+        <ModalC
+          total={cart.bill}
+          show={show}
+          handleClose={handleClose}
+          notes={notes}
+          // @ts-ignore
+          address={address}
+        />
+      </Container>
+    </section>
+  );
+};
 
-                <ModalC total={cart.bill} show={show} handleClose={handleClose} notes={notes} />
-
-            </Container>
-
-        </section>
-    )
-}
-
-export default ShoppingCartPage
+export default ShoppingCartPage;

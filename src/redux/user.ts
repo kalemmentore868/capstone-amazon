@@ -33,16 +33,26 @@ export const signUpUser = createAsyncThunk(
 export const signUpAdmin = createAsyncThunk(
   "user/signUpAdmin",
   async (userData: UserType, { dispatch }) => {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_ENDPOINT}/auth/register-admin`,
-      userData
-    );
+    let userString = localStorage.getItem("user");
+    if (userString === null) return;
 
-    let user = response.data.data;
-    if (user) {
-      await saveToLocalStorage(user, dispatch);
+    const userInfo = JSON.parse(userString);
+    const headers = { Authorization: `Bearer ${userInfo.token}` };
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_ENDPOINT}/auth/register-admin`,
+        userData,
+        { headers }
+      );
+
+      let user = response.data.data;
+      if (user) {
+        await saveToLocalStorage(user, dispatch);
+      }
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
     }
-    return response.data.data;
   }
 );
 
@@ -84,8 +94,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserType>) => {
+    setUser: (state, action: PayloadAction<UserType | null>) => {
       state.user = action.payload;
+      state.status = "succeeded";
     },
     logout: (state) => {
       state.user = null;

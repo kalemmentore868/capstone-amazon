@@ -60,3 +60,16 @@ export interface OrderObj {
   created_at: string;
   id: number;
 }
+
+export interface AddressType {
+  id: number;
+  street: string;
+  city: string;
+  house_number: string;
+}
+
+export interface AddressFormType {
+  street: string;
+  city: string;
+  house_number: string;
+}
