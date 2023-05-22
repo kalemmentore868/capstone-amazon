@@ -7,7 +7,6 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { FaUser, FaLock, FaKey } from "react-icons/fa";
 import { GrMail } from "react-icons/gr";
-import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../redux/redux-hooks";
 import { signUpAdmin } from "../../redux/user";
 import { errorToast, successfulToast } from "../../helper/toasties";
@@ -25,7 +24,6 @@ const AdminSignUpForm: React.FC<props> = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   //@ts-ignore
@@ -175,7 +173,7 @@ const AdminSignUpForm: React.FC<props> = () => {
                   <img
                     src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                     className="img-fluid"
-                    alt="Sample image"
+                    alt="Sample"
                   />
                 </Col>
               </Row>

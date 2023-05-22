@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useMutation } from "react-query";
 import { apiClient } from "../helper/api";
-import { AddressFormType, UserType } from "../helper/types";
+import { AddressFormType } from "../helper/types";
 import { successfulToast } from "../helper/toasties";
 
 interface props {

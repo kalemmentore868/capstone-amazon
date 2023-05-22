@@ -1,28 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EditUserForm from "../components/EditUserForm";
 import OrderContainer from "../components/OrderContainer";
-import { errorToast } from "../helper/toasties";
 import { useAppSelector } from "../redux/redux-hooks";
 
 const UserDashboardPage = () => {
   const { user } = useAppSelector((state) => state.user);
 
-  const navigate = useNavigate();
-
   const [showEditForm, setShowEditForm] = useState(false);
 
   const [showOrders, setShowOrders] = useState(false);
-
-  // useEffect(() => {
-  //     const localUser = localStorage.getItem("user")
-  //     if (!user && !localUser) {
-  //         navigate("/login")
-  //         errorToast("You must be logged in to view this page")
-  //     }
-
-  // }, [user])
 
   const displayForm = () => {
     setShowEditForm(true);

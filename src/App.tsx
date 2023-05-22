@@ -11,7 +11,6 @@ import { useAppDispatch } from "./redux/redux-hooks";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./helper/api";
 import LiveChat from "./components/supportEngine/LiveChat";
-import { fetchCart } from "./redux/helpers";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -36,7 +35,7 @@ function App() {
     dispatch(setUser(user));
 
     dispatch(fetchCartItems(user));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
