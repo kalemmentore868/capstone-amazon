@@ -1,5 +1,5 @@
 import axios from "axios";
-const https = require("https");
+import https from "https";
 import { QueryClient } from "react-query";
 
 const apiClient = axios.create({
