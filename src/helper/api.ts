@@ -2,7 +2,7 @@ import axios from "axios";
 import { QueryClient } from "react-query";
 
 const apiClient = axios.create({
-  baseURL: `${process.env.REACT_APP_API_ENDPOINT}/`,
+  baseURL: `https://18.222.121.148/api`,
 });
 
 const queryClient = new QueryClient();
