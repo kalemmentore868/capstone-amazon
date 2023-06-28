@@ -1,32 +1,20 @@
-# Use an official Node.js LTS version as the base image
-FROM node:lts as build-stage
+# Dockerfile for React client
 
-# Set the working directory inside the container
-WORKDIR /app
+# Build react client
+FROM node:10.16-alpine
 
-# Copy the package.json and package-lock.json files to the container
+# Working directory be app
+WORKDIR /usr/src/app
+
 COPY package*.json ./
 
-# Install the dependencies
-RUN npm ci
+###  Installing dependencies
 
-# Copy the entire project directory to the container
+RUN npm install --silent
+
+# copy local files to app folder
 COPY . .
 
-# Build the React app
-RUN npm run build
+EXPOSE 3000
 
-# Use a lightweight web server as the base image
-FROM nginx:alpine
-
-# Copy the built static files from the previous stage to the appropriate location in the container
-COPY --from=build-stage /app/build /usr/share/nginx/html
-
-# Copy the .env file to the container
-COPY .env /usr/share/nginx/html
-
-# Expose the default HTTP port
-EXPOSE 80
-
-# Start the nginx server when the container launches
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm","start"]
