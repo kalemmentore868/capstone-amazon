@@ -12,6 +12,7 @@ import ModalC from "../components/Modal";
 import AddressForm from "../components/AddressForm";
 import AddressSelect from "../components/SelectAddress";
 import { AddressFormType, AddressType } from "../helper/types";
+import { Link } from "react-router-dom";
 
 const ShoppingCartPage = () => {
   const [show, setShow] = useState(false);
@@ -27,13 +28,14 @@ const ShoppingCartPage = () => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    for (let item of cart.items) {
-      if (item.quantity === 0) {
-        dispatch(removeItemFromCart(item.productId));
+    if (cart) {
+      for (let item of cart.items) {
+        if (item.quantity === 0) {
+          dispatch(removeItemFromCart(item.productId));
+        }
       }
+      dispatch(setBill());
     }
-
-    dispatch(setBill());
   }, [cart, dispatch]);
 
   const onSelectAddress = (address: AddressType) => {
@@ -50,53 +52,70 @@ const ShoppingCartPage = () => {
   return (
     <section style={{ minHeight: "100vh" }}>
       <Container className=" py-5">
-        <Row className="d-flex justify-content-center align-items-center">
-          <CartHeading />
-          {cart.items.map((item) => {
-            return <CartItem key={item.productId} item={item} />;
-          })}
+        {cart ? (
+          <>
+            {" "}
+            <Row className="d-flex justify-content-center align-items-center">
+              <CartHeading />
+              {cart?.items?.map((item) => {
+                return <CartItem key={item.productId} item={item} />;
+              })}
 
-          <CartTotal total={cart.bill} />
+              <CartTotal total={cart?.bill} />
 
-          <Form.Label>Notes:</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a note here for any other items"
-            className="mb-4"
-            style={{ height: "100px" }}
-            onChange={(e) => setNotes(e.target.value)}
-          />
+              <Form.Label>Notes:</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Leave a note here for any other items"
+                className="mb-4"
+                style={{ height: "100px" }}
+                onChange={(e) => setNotes(e.target.value)}
+              />
 
-          <AddressSelect
-            onSelectAddress={onSelectAddress}
-            onAddAddress={() => setShowAddressForm(true)}
-          />
+              <div className="mb-4">
+                <AddressSelect
+                  onSelectAddress={onSelectAddress}
+                  onAddAddress={() => setShowAddressForm(true)}
+                />
 
-          {showAddressForm && <AddressForm onAddAddress={onAddAddress} />}
+                <Button onClick={() => setShowAddressForm(true)}>
+                  Add Another Address
+                </Button>
+              </div>
 
-          <Card className="mb-4">
-            <Card.Body className="d-grid p-4">
-              <Button
-                size="lg"
-                variant="warning"
-                onClick={handleShow}
-                className="btn-block text-light"
-                disabled={!paymentReady}
-              >
-                Proceed to Pay
-              </Button>
-            </Card.Body>
-          </Card>
-        </Row>
+              {showAddressForm && <AddressForm onAddAddress={onAddAddress} />}
 
-        <ModalC
-          total={cart.bill}
-          show={show}
-          handleClose={handleClose}
-          notes={notes}
-          // @ts-ignore
-          address={address}
-        />
+              <Card className="mb-4">
+                <Card.Body className="d-grid p-4">
+                  <Button
+                    size="lg"
+                    variant="warning"
+                    onClick={handleShow}
+                    className="btn-block text-light"
+                    disabled={!paymentReady}
+                  >
+                    Proceed to Pay
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Row>
+            <ModalC
+              total={cart?.bill}
+              show={show}
+              handleClose={handleClose}
+              notes={notes}
+              // @ts-ignore
+              address={address}
+            />
+          </>
+        ) : (
+          <>
+            <h2>You have no items in your cart</h2>
+            <div className="text-center">
+              Click <Link to={"/"}>here</Link> to go back to the home page
+            </div>
+          </>
+        )}
       </Container>
     </section>
   );

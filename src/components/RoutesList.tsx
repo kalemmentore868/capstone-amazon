@@ -95,7 +95,9 @@ const RoutesList = () => {
         path="/checkout"
         element={
           <Suspense fallback={<Loader />}>
-            <ShoppingCartPage />
+            <RequireAuth>
+              <ShoppingCartPage />
+            </RequireAuth>
           </Suspense>
         }
       />

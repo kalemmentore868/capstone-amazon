@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OrderItem from "./OrderItem";
+
 import { Col } from "react-bootstrap";
 import BootstrapPagination from "./ProductComponents/CustomPagination";
 import Loader from "./Loader";
@@ -48,3 +48,39 @@ const OrderContainer: React.FC<props> = ({ user }) => {
 };
 
 export default OrderContainer;
+/*
+paginated manner.
+
+Props
+The component accepts the following props:
+
+user: UserType (required): The user object for whom the orders are displayed.
+
+
+The component uses the Bootstrap Grid system to create a responsive layout. It displays a heading with the user's orders, renders OrderReceipt components for each order, and includes a pagination component provided by BootstrapPagination to navigate through the orders.
+
+State
+The component uses the useState hook to manage the following state:
+
+currentPage: A number representing the currently active page.
+ordersPerPage: The number of orders to display per page.
+Custom Hooks
+The component uses a custom hook useOrders to fetch the user's orders. It passes the user prop to this hook and retrieves the resulting data object, representing the orders.
+
+Pagination
+The pagination functionality is implemented by calculating the total number of pages (totalPages) based on the total number of orders (orders.length) and the number of orders per page (ordersPerPage). The handlePageChange function is used to update the currentPage state when the user navigates to a different page.
+
+Loading State
+While the orders are being fetched (getOrders.isLoading is true), the component displays a Loader component.
+
+Dependencies
+The component imports the following dependencies:
+
+React and useState from the React library.
+Col from react-bootstrap for grid layout.
+BootstrapPagination for pagination.
+Loader component for indicating loading state.
+useOrders custom hook for fetching user's orders.
+OrderReceipt component for rendering individual order details.
+
+*/

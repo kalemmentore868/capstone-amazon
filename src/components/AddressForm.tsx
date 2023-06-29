@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import { apiClient } from "../helper/api";
 import { AddressFormType } from "../helper/types";
 import { successfulToast } from "../helper/toasties";
+import { useQueryClient } from "react-query";
 
 interface props {
   onAddAddress: () => void;
@@ -23,11 +24,15 @@ const AddressForm: React.FC<props> = ({ onAddAddress }) => {
     city: "",
   });
 
+  const queryClient = useQueryClient();
+
   //@ts-ignore
   const createAddressMutation = useMutation(createAddress, {
     onSuccess: () => {
       onAddAddress();
       successfulToast("Address added successfully");
+
+      queryClient.invalidateQueries("addresses");
     },
   });
 

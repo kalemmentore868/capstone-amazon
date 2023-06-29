@@ -6,13 +6,19 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import "../assets/css/login.css";
 import { useNavigate } from "react-router";
-import { useAppDispatch } from "../redux/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../redux/redux-hooks";
 import { loginUser } from "../redux/user";
 import { errorToast, successfulToast } from "../helper/toasties";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { status } = useAppSelector((state) => state.user);
+  let isLoading = false;
+
+  if (status === "loading") isLoading = true;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -97,14 +103,15 @@ const LoginForm = () => {
                 style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
                 variant="primary"
                 type="submit"
+                disabled={isLoading}
               >
-                Login
+                {isLoading ? "Loading..." : "Login"}
               </Button>
               <p className="small fw-bold mt-2 pt-1 mb-0">
                 Don't have an account?{" "}
-                <a href="#!" className="link-danger">
+                <Link to={"/signup"} className="link-danger">
                   Register
-                </a>
+                </Link>
               </p>
             </div>
           </Form>

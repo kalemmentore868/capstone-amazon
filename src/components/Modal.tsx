@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { errorToast, successfulToast } from "../helper/toasties";
@@ -18,12 +18,14 @@ interface props {
 
 const ModalC: React.FC<props> = (props: any) => {
   const { total, notes, handleClose, address, ...rest } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const makePurchase = async () => {
+    setIsLoading(true);
     if (user) {
       const { id, token } = user;
       const headers = { Authorization: `Bearer ${token}` };
@@ -46,6 +48,7 @@ const ModalC: React.FC<props> = (props: any) => {
       errorToast("You must be logged in to make purchase");
       navigate("/login");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -53,10 +56,19 @@ const ModalC: React.FC<props> = (props: any) => {
       <Modal.Header>
         <Modal.Title>Pay With Cash On Delivery</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Total: ${total.toFixed(2)}</Modal.Body>
+      <Modal.Body>
+        <div>Items Total: ${total.toFixed(2)}</div>
+        <div>Delivery fee: $15</div>
+        <div>Total: ${(total + 15).toFixed(2)}</div>
+      </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
-        <Button variant="primary" size="lg" onClick={makePurchase}>
-          Make Order
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={makePurchase}
+          disabled={isLoading}
+        >
+          {isLoading ? "Loading..." : "Make Order"}
         </Button>
 
         <Button variant="secondary" onClick={handleClose}>
